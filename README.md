@@ -10,6 +10,9 @@ See [documentation](https://github.com/xuekai-china/vuepress-plugin-right-anchor
   - 点击锚点标签页面滚动过度。
   - 页面滚动时对应锚点标签跟随高亮。
 
+## 示例
+  [soonspacejs 文档](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/sbm.html)
+
 ## 安装
 ```bash
 yarn add vuepress-plugin-right-anchor -D
