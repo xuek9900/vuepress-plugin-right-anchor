@@ -1,0 +1,19 @@
+{
+  "name": "vuepress-plugin-right-anchor",
+  "version": "0.0.2",
+  "description": "Right-anchor plugin for vuepres",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vuepres",
+    "right",
+    "anchor"
+  ],
+  "author": "xuek",
+  "license": "ISC",
+  "dependencies": {
+    "lodash.debounce": "^4.0.8"
+  }
+}
