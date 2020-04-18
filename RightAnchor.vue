@@ -61,7 +61,6 @@ export default {
           const el = document.getElementById(id);
           if (el) {
             clearInterval(t);
-            console.log(el);
             res(el);
           }
         }, 100);
