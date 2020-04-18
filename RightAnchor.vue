@@ -1,5 +1,5 @@
 <template>
-  <ui class="right-anchor">
+  <ul class="right-anchor">
     <li
       class="right-anchor-item"
       v-for="(item, index) in listData"
@@ -9,7 +9,7 @@
     >
       {{ item.title }}
     </li>
-  </ui>
+  </ul>
 </template>
 
 <script>
