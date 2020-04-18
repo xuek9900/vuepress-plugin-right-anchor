@@ -25,8 +25,8 @@ export default {
     };
   },
   watch: {
-    "$page.regularPath": function(newVal, oldVal) {
-      if (newVal !== oldVal) this.filterDataByLevel(newVal);
+    "$page.regularPath": function(newVal) {
+      this.filterDataByLevel(newVal);
     }
   },
   methods: {
@@ -40,16 +40,19 @@ export default {
     },
     filterDataByLevel(curPagePath) {
       this.listData = [];
+
+      if (this.$page.rightAnchor.isIgnore) return;
+
       let data = [];
 
       for (let i in this.$site.pages) {
         if (this.$site.pages[i].regularPath === curPagePath) {
-          data = this.$site.pages[i].headers;
+          data = this.$site.pages[i].headers || [];
         }
       }
 
       data.map(item => {
-        if (item.level === this.$page.rightAnchorShowLevel)
+        if (item.level === this.$page.rightAnchor.showLevel)
           this.listData.push(item);
       });
 
@@ -70,7 +73,6 @@ export default {
     }
   },
   mounted() {
-    this.filterDataByLevel();
     window.addEventListener(
       "scroll",
       debounce(() => {
@@ -81,6 +83,7 @@ export default {
         });
       }, 100)
     );
+    this.filterDataByLevel();
   }
 };
 </script>
@@ -88,6 +91,7 @@ export default {
 <style lang="stylus" scoped>
 .right-anchor {
   position: fixed;
+  padding: 0;
   top: 84px;
   right: 0;
   min-width: 132px;

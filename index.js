@@ -5,8 +5,11 @@ module.exports = (options, ctx) => {
     enhanceAppFiles: [
       path.resolve(__dirname, 'enhanceAppFile.js')
     ],
-    extendPageData ($page) {
-      $page.rightAnchorShowLevel = options.showLevel + 1 || 2
+    extendPageData($page) {
+      $page.rightAnchor = {
+        isIgnore: options.ignore.includes($page.regularPath),
+        showLevel: options.showLevel + 1 || 2,
+      }
     },
     globalUIComponents: 'RightAnchor'
   }
