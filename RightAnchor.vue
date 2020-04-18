@@ -20,13 +20,12 @@ export default {
   data() {
     return {
       listData: [],
-      activeIndex: null,
-      curPagePath: null
+      activeIndex: null
     };
   },
   watch: {
-    "$page.regularPath": function(newVal) {
-      this.filterDataByLevel(newVal);
+    "$page.regularPath": function() {
+      this.filterDataByLevel();
     }
   },
   methods: {
@@ -38,30 +37,35 @@ export default {
         behavior: "smooth"
       });
     },
-    filterDataByLevel(curPagePath) {
+    filterDataByLevel() {
       this.listData = [];
 
-      if (this.$page.rightAnchor.isIgnore) return;
+      if (this.$page.rightAnchor.isIgnore || !this.$page.headers) return;
 
-      let data = [];
-
-      for (let i in this.$site.pages) {
-        if (this.$site.pages[i].regularPath === curPagePath) {
-          data = this.$site.pages[i].headers || [];
-        }
-      }
-
-      data.map(item => {
+      this.$page.headers.map(item => {
         if (item.level === this.$page.rightAnchor.showLevel)
           this.listData.push(item);
       });
 
-      this.$nextTick(() =>
-        this.listData.map(
-          item =>
-            (item.offsetTop = document.getElementById(item.slug).offsetTop)
-        )
-      );
+      this.$nextTick(() => {
+        this.listData.map(async item => {
+          this.getEleById(item.slug).then(
+            el => (item.offsetTop = el.offsetTop)
+          );
+        });
+      });
+    },
+    getEleById(id) {
+      return new Promise(res => {
+        const t = setInterval(() => {
+          const el = document.getElementById(id);
+          if (el) {
+            clearInterval(t);
+            console.log(el);
+            res(el);
+          }
+        }, 100);
+      });
     },
     getScrollTop() {
       return (
@@ -73,17 +77,19 @@ export default {
     }
   },
   mounted() {
+    this.filterDataByLevel();
+
     window.addEventListener(
       "scroll",
       debounce(() => {
         const scrollTop = this.getScrollTop();
 
         this.listData.map((item, index) => {
-          if (scrollTop >= item.offsetTop) this.activeIndex = index;
+          if (item.offsetTop && scrollTop >= item.offsetTop)
+            this.activeIndex = index;
         });
-      }, 100)
+      }, 1000)
     );
-    this.filterDataByLevel();
   }
 };
 </script>
