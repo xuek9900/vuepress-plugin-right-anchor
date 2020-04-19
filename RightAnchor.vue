@@ -100,7 +100,7 @@ export default {
   top: 84px;
   right: 0;
   min-width: 132px;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #eaecef;
   z-index: 100;
   background-color: rgba(255, 255, 255, 0.7);
 
@@ -111,7 +111,7 @@ export default {
     margin-left: -1px;
     text-decoration: none;
     display: block;
-    color: #333;
+    color: $textColor;
 
     &:hover, &.active {
       color: $accentColor;
