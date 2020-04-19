@@ -112,6 +112,7 @@ export default {
     text-decoration: none;
     display: block;
     color: $textColor;
+    cursor: pointer;
 
     &:hover, &.active {
       color: $accentColor;
