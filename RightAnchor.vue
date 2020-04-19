@@ -48,7 +48,7 @@ export default {
       });
 
       this.$nextTick(() => {
-        this.listData.map(async item => {
+        this.listData.map(item => {
           this.getEleById(item.slug).then(
             el => (item.offsetTop = el.offsetTop)
           );
@@ -87,7 +87,7 @@ export default {
           if (item.offsetTop && scrollTop >= item.offsetTop)
             this.activeIndex = index;
         });
-      }, 1000)
+      }, 300)
     );
   }
 };
