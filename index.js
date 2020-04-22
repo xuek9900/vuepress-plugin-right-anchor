@@ -1,14 +1,16 @@
 const { path } = require('@vuepress/shared-utils')
 
-module.exports = (options, ctx) => {
+module.exports = (options = {}, ctx) => {
   return {
     enhanceAppFiles: [
       path.resolve(__dirname, 'enhanceAppFile.js')
     ],
     extendPageData($page) {
+      const { showLevel = 1, ignore = [] } = options
+
       $page.rightAnchor = {
-        isIgnore: options.ignore.includes($page.regularPath),
-        showLevel: options.showLevel + 1 || 2,
+        isIgnore: ignore.includes($page.regularPath),
+        showLevel: showLevel + 1
       }
     },
     globalUIComponents: 'RightAnchor'

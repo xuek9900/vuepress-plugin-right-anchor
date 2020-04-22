@@ -1,51 +1,77 @@
-# vuepress-plugin-right-anchor
+<h1 align="center">vuepress-plugin-right-anchor</h1>
+<div align="center">
 
-See [documentation](https://github.com/xuekai-china/vuepress-plugin-right-anchor).
+![Version](https://img.shields.io/github/package-json/v/xuekai-china/vuepress-plugin-right-anchor?style=flat-square)
+![NPM](https://img.shields.io/npm/l/vuepress-plugin-right-anchor?style=flat-square)
 
-> Right-anchor plugin for VuePress
-> 在用 VuePress 编写的文档页面右侧添加 **锚点导航栏**
+</div>
 
-## 特性
-  - 简化左侧边栏结构的同时不丢失页面内标题导航的功能。
-  - 点击锚点标签页面滚动过度。
-  - 页面滚动时对应锚点标签跟随高亮。
+English ｜[中文](./zh-README.md)
 
-## 示例
-  [soonspacejs 文档](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/sbm.html)
+> Add **anchor navigation bar** to the right of the document page written in vuepress
 
-## 安装
+## Features
+  - Simplify the structure of the left sidebar without losing the function of Title navigation within the page。
+  - Click anchor label page over scrolling。
+  - When the page scrolls, the corresponding anchor label follows the highlight。
+
+## Sample
+  [soonspacejs document](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/sbm.html)
+
+## Install
 ```bash
 yarn add vuepress-plugin-right-anchor -D
 # or
 npm i vuepress-plugin-right-anchor -D
 ```
 
-## 使用
-在 `.vuepress/config.js` 添加如下配置。 
+## Use
+Add in `.vuepress/config.js`
+```js
+module.exports = {
+  // ...
+  plugins: [
+    // ...
+    ['vuepress-plugin-right-anchor']
+  ]
+}
+```
+
+## Config
+Add in `.vuepress/config.js`
 ```js
 module.exports = {
   // ...
   plugins: [
     // ...
     [
-      // plugin name
       'vuepress-plugin-right-anchor',
-      // option
       {
-        /*
-          将当前页面的哪一层标题用在 right-anchor 展示
-          值的指向含义与 themeConfig.sidebarDepth 一致
-          https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F
-        */
         showLevel: 1,
-        // 在以下 path 的页面中不出现 right-anchor
         ignore: [
           '/',
           '/api/'
-          // 更多...
+          // more...
         ]
       }
     ]
   ]
 }
 ```
+
+## Param description
+
+### showLevel
+
+  Which level of title will be used in the right anchor display.
+  The pointing meaning of the value is the same as [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F).
+
+  - Type: number
+  - Default: 1
+
+### ignore
+
+  Don't show right-anchor's page.
+
+  - Type: array
+  - Default: []
