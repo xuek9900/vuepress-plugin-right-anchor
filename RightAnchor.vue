@@ -110,7 +110,6 @@ export default {
     margin-left: -1px;
     text-decoration: none;
     display: block;
-    color: $textColor;
     cursor: pointer;
 
     &:hover, &.active {
