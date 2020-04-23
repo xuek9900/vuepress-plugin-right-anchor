@@ -120,8 +120,7 @@ export default {
   }
 }
 
-@media (max-width: $MQNarrow)
-.right-anchor {
-  display none
-}
+@media (max-width: $MQMobile)
+  .right-anchor
+    display none
 </style>
