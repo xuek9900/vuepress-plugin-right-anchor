@@ -102,6 +102,7 @@ export default {
   min-width: 132px;
   border-left: 1px solid #eaecef;
   z-index: 100;
+  background-color #fff
 
   &-item {
     display: block;
@@ -117,5 +118,10 @@ export default {
       border-left: 1px solid $accentColor;
     }
   }
+}
+
+@media (max-width: $MQNarrow)
+.right-anchor {
+  display none
 }
 </style>
