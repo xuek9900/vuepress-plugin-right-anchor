@@ -102,7 +102,6 @@ export default {
   min-width: 132px;
   border-left: 1px solid #eaecef;
   z-index: 100;
-  background-color #fff
 
   &-item {
     display: block;
