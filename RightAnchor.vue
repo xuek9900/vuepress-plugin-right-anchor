@@ -111,10 +111,11 @@ export default {
     text-decoration: none;
     display: block;
     cursor: pointer;
+    border-left: 1px solid transparent;
 
     &:hover, &.active {
       color: $accentColor;
-      border-left: 1px solid $accentColor;
+      border-left-color: $accentColor;
     }
   }
 }
