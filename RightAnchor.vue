@@ -6,9 +6,7 @@
       :key="index"
       @click="itemClick(index, item.slug)"
       :class="{ active: index === activeIndex }"
-    >
-      {{ item.title }}
-    </li>
+    >{{ item.title }}</li>
   </ul>
 </template>
 
@@ -43,28 +41,41 @@ export default {
       if (this.$page.rightAnchor.isIgnore || !this.$page.headers) return;
 
       this.$page.headers.map(item => {
-        if (item.level === this.$page.rightAnchor.showLevel)
+        if (item.level === this.$page.rightAnchor.showLevel) {
           this.listData.push(item);
+        }
       });
 
       this.$nextTick(() => {
+
         this.listData.map(item => {
-          this.getEleById(item.slug).then(
-            el => (item.offsetTop = el.offsetTop)
-          );
+
+          this.getEleById(item.slug).then(el => {
+
+            item.offsetTop = el.offsetTop;
+
+          });
+
         });
+
       });
     },
     getEleById(id) {
-      return new Promise(res => {
+      return new Promise(resolve => {
+
         const t = setInterval(() => {
+
           const el = document.getElementById(id);
+
           if (el) {
             clearInterval(t);
-            res(el);
+            resolve(el);
           }
+
         }, 100);
+
       });
+
     },
     getScrollTop() {
       return (
@@ -115,11 +126,14 @@ export default {
     &:hover, &.active {
       color: $accentColor;
       border-left: 1px solid $accentColor;
+      padding-left: 15px;
     }
   }
 }
 
-@media (max-width: $MQMobile)
-  .right-anchor
-    display none
+@media (max-width: $MQMobile) {
+  .right-anchor {
+    display: none;
+  }
+}
 </style>
