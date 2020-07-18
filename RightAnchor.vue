@@ -105,35 +105,33 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.right-anchor {
-  position: fixed;
-  padding: 0;
-  top: 84px;
-  right: 0;
-  min-width: 132px;
-  border-left: 1px solid #eaecef;
-  z-index: 100;
+.right-anchor
+  position fixed
+  padding 0
+  top $navbarHeight
+  right 0
+  min-width 132px
+  border-left 1px solid #eaecef
+  z-index 100
+  background-color $rightAnchorBgColor
 
-  &-item {
-    display: block;
-    padding: 4px 16px;
-    font-size: 12px;
-    margin-left: -1px;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
+  &-item
+    display block
+    padding 4px 16px
+    font-size 12px
+    margin-left -1px
+    text-decoration none
+    display block
+    cursor pointer
 
-    &:hover, &.active {
-      color: $accentColor;
-      border-left: 1px solid $accentColor;
-      padding-left: 15px;
-    }
-  }
-}
-
-@media (max-width: $MQMobile) {
-  .right-anchor {
-    display: none;
-  }
-}
+    &:hover,
+    &.active
+      color $accentColor
+      border-left 1px solid $accentColor
+      padding-left 15px
+    
+@media (max-width: $MQMobile) 
+  .right-anchor 
+    display: none
+  
 </style>

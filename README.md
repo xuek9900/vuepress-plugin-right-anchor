@@ -37,6 +37,13 @@ module.exports = {
 }
 ```
 
+## Style
+Add in `.vuepress/styles/palette.js`
+
+```stylus
+$rightAnchorBgColor = #fff
+```
+
 ## Config
 Add in `.vuepress/config.js`
 ```js

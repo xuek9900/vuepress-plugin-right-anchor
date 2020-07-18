@@ -37,6 +37,13 @@ module.exports = {
 }
 ```
 
+## 样式
+在 `.vuepress/styles/palette.js` 添加样式变量。
+
+```stylus
+$rightAnchorBgColor = #fff
+```
+
 ## 配置
 在 `.vuepress/config.js` 添加如下配置。 
 ```js
