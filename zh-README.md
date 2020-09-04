@@ -73,8 +73,8 @@ module.exports = {
   在右锚显示中将使用哪一级别的标题。
   该值的指向含义与 [themeconfig.sidebardept](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F) 相同。
 
-  - Type: number
-  - Default: 1
+  - Type: null | number
+  - Default: null
 
 ### ignore
 

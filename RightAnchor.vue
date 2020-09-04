@@ -5,7 +5,7 @@
       v-for="(item, index) in listData"
       :key="index"
       @click="itemClick(index, item.slug)"
-      :class="{ active: index === activeIndex }"
+      :class="{ active: index === activeIndex, sub: item.level === 3 }"
     >{{ item.title }}</li>
   </ul>
 </template>
@@ -18,13 +18,13 @@ export default {
   data() {
     return {
       listData: [],
-      activeIndex: null
+      activeIndex: null,
     };
   },
   watch: {
-    "$page.regularPath": function() {
+    "$page.regularPath": function () {
       this.filterDataByLevel();
-    }
+    },
   },
   methods: {
     itemClick(index, slug) {
@@ -32,7 +32,7 @@ export default {
 
       window.scrollTo({
         top: document.getElementById(slug).offsetTop,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     },
     filterDataByLevel() {
@@ -40,42 +40,34 @@ export default {
 
       if (this.$page.rightAnchor.isIgnore || !this.$page.headers) return;
 
-      this.$page.headers.map(item => {
-        if (item.level === this.$page.rightAnchor.showLevel) {
-          this.listData.push(item);
-        }
-      });
+      if (this.$page.rightAnchor.showLevel === null) {
+        this.listData = JSON.parse(JSON.stringify(this.$page.headers));
+      } else {
+        this.$page.headers.forEach((item) => {
+          if (item.level === this.$page.rightAnchor.showLevel) {
+            this.listData.push(JSON.parse(JSON.stringify(item)));
+          }
+        });
+      }
 
       this.$nextTick(() => {
-
-        this.listData.map(item => {
-
-          this.getEleById(item.slug).then(el => {
-
+        this.listData.forEach((item) => {
+          this.getEleById(item.slug).then((el) => {
             item.offsetTop = el.offsetTop;
-
           });
-
         });
-
       });
     },
     getEleById(id) {
-      return new Promise(resolve => {
-
+      return new Promise((resolve) => {
         const t = setInterval(() => {
-
           const el = document.getElementById(id);
-
           if (el) {
             clearInterval(t);
             resolve(el);
           }
-
         }, 100);
-
       });
-
     },
     getScrollTop() {
       return (
@@ -84,7 +76,7 @@ export default {
         document.body.scrollTop ||
         0
       );
-    }
+    },
   },
   mounted() {
     this.filterDataByLevel();
@@ -100,38 +92,53 @@ export default {
         });
       }, 300)
     );
-  }
+  },
 };
 </script>
 
 <style lang="stylus" scoped>
-.right-anchor
-  position fixed
-  padding 0
-  top $navbarHeight
-  right 0
-  min-width 132px
-  border-left 1px solid #eaecef
-  z-index 100
-  background-color $rightAnchorBgColor
+.right-anchor {
+  position: fixed;
+  padding: 8px 0;
+  margin: 0;
+  top: $navbarHeight;
+  max-height: 75vh;
+  right: 0;
+  min-width: 132px;
+  border-left: 1px solid #eaecef;
+  background-color: $rightAnchorBgColor;
+  overflow-y: auto;
+  z-index: 1;
 
-  &-item
-    display block
-    padding 4px 16px
-    font-size 12px
-    margin-left -1px
-    text-decoration none
-    display block
-    cursor pointer
+  &-item {
+    display: block;
+    padding: 4px 16px;
+    font-size: 12px;
+    margin-left: -1px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+
+    &.sub {
+      padding-left: 24px;
+    }
 
     &:hover,
-    &.active
-      color $accentColor
-      border-left 1px solid $accentColor
-      padding-left 15px
-    
-@media (max-width: $MQMobile) 
-  .right-anchor 
-    display: none
-  
+    &.active {
+      color: $accentColor;
+      border-left: 1px solid $accentColor;
+      padding-left: 15px;
+
+      &.sub {
+        padding-left: 23px;
+      }
+    }
+  }
+}
+
+@media (max-width: $MQMobile) {
+  .right-anchor {
+    display: none;
+  }
+}
 </style>

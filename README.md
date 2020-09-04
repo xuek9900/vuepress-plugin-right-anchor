@@ -73,8 +73,8 @@ module.exports = {
   Which level of title will be used in the right anchor display.
   The pointing meaning of the value is the same as [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F).
 
-  - Type: number
-  - Default: 1
+  - Type: null | number
+  - Default: null
 
 ### ignore
 
