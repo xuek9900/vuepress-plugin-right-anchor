@@ -38,7 +38,7 @@ module.exports = {
 ```
 
 ## Style
-Add in `.vuepress/styles/palette.js`
+Add in `.vuepress/styles/palette.styl`
 
 ```stylus
 $rightAnchorBgColor = #fff
