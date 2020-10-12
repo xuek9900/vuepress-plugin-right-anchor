@@ -38,7 +38,7 @@ module.exports = {
 ```
 
 ## 样式
-在 `.vuepress/styles/palette.js` 添加样式变量。
+在 `.vuepress/styles/palette.styl` 添加样式变量。
 
 ```stylus
 $rightAnchorBgColor = #fff
