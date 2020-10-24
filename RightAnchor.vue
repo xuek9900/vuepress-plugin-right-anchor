@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="!listData || listData.length === 0" class="right-anchor" :class="rightAnchorOption.customClass">
+  <ul v-if="listData && listData.length > 0" class="right-anchor" :class="rightAnchorOption.customClass">
     <li
       class="right-anchor-item"
       v-for="(item, index) in listData"

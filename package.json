@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-right-anchor",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Right-anchor plugin for vuepres",
   "main": "index.js",
   "scripts": {
