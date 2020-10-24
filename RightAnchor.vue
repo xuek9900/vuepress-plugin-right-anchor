@@ -1,12 +1,14 @@
 <template>
-  <ul class="right-anchor">
+  <ul class="right-anchor" :class="rightAnchorOption.customClass">
     <li
       class="right-anchor-item"
       v-for="(item, index) in listData"
       :key="index"
       @click="itemClick(index, item.slug)"
       :class="{ active: index === activeIndex, sub: item.level === 3 }"
-    >{{ item.title }}</li>
+    >
+      {{ item.title }}
+    </li>
   </ul>
 </template>
 
@@ -26,6 +28,11 @@ export default {
       this.filterDataByLevel();
     },
   },
+  computed: {
+    rightAnchorOption: function () {
+      return this.$page.frontmatter.rightAnchor || this.$page.rightAnchor
+    }
+  },
   methods: {
     itemClick(index, slug) {
       this.activeIndex = index;
@@ -38,13 +45,23 @@ export default {
     filterDataByLevel() {
       this.listData = [];
 
-      if (this.$page.rightAnchor.isIgnore || !this.$page.headers) return;
+      const { headers } = this.$page;
+      const { isIgnore, showDepth } = this.rightAnchorOption;
 
-      if (this.$page.rightAnchor.showLevel === null) {
-        this.listData = JSON.parse(JSON.stringify(this.$page.headers));
-      } else {
-        this.$page.headers.forEach((item) => {
-          if (item.level === this.$page.rightAnchor.showLevel) {
+      console.log()
+
+      if (
+        isIgnore ||
+        showDepth === 0 ||
+        !headers
+      ) return;
+
+      if (!showDepth) {
+        this.listData = JSON.parse(JSON.stringify(headers));
+      } 
+      else {
+        headers.forEach((item) => {
+          if (item.level <= showDepth + 1) {
             this.listData.push(JSON.parse(JSON.stringify(item)));
           }
         });
@@ -123,8 +140,7 @@ export default {
       padding-left: 24px;
     }
 
-    &:hover,
-    &.active {
+    &:hover, &.active {
       color: $accentColor;
       border-left: 1px solid $accentColor;
       padding-left: 15px;
