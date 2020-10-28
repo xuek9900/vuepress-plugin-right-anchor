@@ -14,6 +14,7 @@
   "author": "xuek",
   "license": "ISC",
   "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "vue-simple-accordion": "^0.1.0"
   }
 }
