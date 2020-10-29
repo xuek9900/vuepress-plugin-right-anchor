@@ -1,5 +1,5 @@
 <template>
-  <div class="page-toc-wrapper" 
+  <div v-if="listData && listData.length > 0" class="page-toc-wrapper" 
     @mouseover="hover = true"
     @mouseleave="hover = false" >
 
@@ -50,10 +50,7 @@ export default {
     filterDataByLevel() {
       this.listData = [];
 
-      if (this.$page.rightAnchor.isIgnore || !this.$page.headers) {
-      this.hover=true;
-      return;
-      }
+      if (this.$page.rightAnchor.isIgnore || !this.$page.headers) return;
 
       if (this.$page.rightAnchor.showLevel === null) {
         this.listData = JSON.parse(JSON.stringify(this.$page.headers));
