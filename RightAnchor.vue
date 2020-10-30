@@ -1,18 +1,26 @@
 <template>
-  <ul v-if="listData && listData.length > 0" class="right-anchor" :class="rightAnchorOption.customClass">
-    <li
-      class="right-anchor-item"
-      v-for="(item, index) in listData"
-      :key="index"
-      @click="itemClick(index, item.slug)"
-      :class="{ active: index === activeIndex, sub: item.level === 3 }"
-    >
-      {{ item.title }}
-    </li>
-  </ul>
+  <div v-if="listData && listData.length > 0" class="page-toc-wrapper" 
+    @mouseover="hover = true"
+    @mouseleave="hover = false" >
+
+    <ul v-if="hover" class="page-toc-menu">
+      <li
+        class="page-toc-menu-item"
+        v-for="(item, index) in listData"
+        :key="index"
+        @click="itemClick(index, item.slug)"
+        :class="{ active: index === activeIndex, sub: item.level === 3 }"
+      >{{ item.title }}</li>
+    
+    </ul>  
+    
+    <button v-else="hover" class="page-toc-button">&#9776;</button>
+
+  </div>
 </template>
 
 <script>
+
 import debounce from "lodash.debounce";
 
 export default {
@@ -21,6 +29,7 @@ export default {
     return {
       listData: [],
       activeIndex: null,
+      hover: false,
     };
   },
   watch: {
@@ -47,8 +56,6 @@ export default {
 
       const { headers } = this.$page;
       const { isIgnore, showDepth } = this.rightAnchorOption;
-
-      console.log()
 
       if (
         isIgnore ||
@@ -114,27 +121,28 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.right-anchor {
-  position: fixed;
-  padding: 8px 0;
-  margin: 0;
-  top: $navbarHeight;
-  max-height: 75vh;
-  right: 0;
-  min-width: 132px;
-  border-left: 1px solid #eaecef;
-  background-color: $rightAnchorBgColor;
-  overflow-y: auto;
-  z-index: 1;
 
+$pageMenuBgColor = dimgray;
+$pageMenuTextColor = white;
+//$pageMenuBgColor = lightblue;
+
+
+.page-toc-menu {
+  z-index: 1;
+  background-color: $pageMenuBgColor;
+  margin: 10px 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  
   &-item {
     display: block;
     padding: 4px 16px;
-    font-size: 12px;
+    //font-size: 12px;
     margin-left: -1px;
     text-decoration: none;
     display: block;
     cursor: pointer;
+    color: $pageMenuTextColor;
 
     &.sub {
       padding-left: 24px;
@@ -152,8 +160,33 @@ export default {
   }
 }
 
+.page-toc-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  padding: 8px 0;
+  margin: 0;
+  top: $navbarHeight;
+  max-height: 75vh;
+  right: 0;
+  overflow-y: auto;
+  
+  
+}
+.page-toc-button {
+  font-size: 25px;
+  color: #fff;
+  border-radius: 45%;
+  background-color: #00000070;
+  border-color: #00000080;
+  padding: 10px;
+  margin: 25px 20px;
+}
+
+
 @media (max-width: $MQMobile) {
-  .right-anchor {
+  .page-toc-wrapper {
     display: none;
   }
 }
