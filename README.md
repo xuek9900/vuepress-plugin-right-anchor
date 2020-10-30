@@ -38,13 +38,13 @@ module.exports = {
 ```
 
 ## Style
-Add in `.vuepress/styles/palette.js`
+Add in `.vuepress/styles/palette.styl`
 
 ```stylus
 $rightAnchorBgColor = #fff
 ```
 
-## Config
+## Global Config
 Add in `.vuepress/config.js`
 ```js
 module.exports = {
@@ -54,7 +54,8 @@ module.exports = {
     [
       'vuepress-plugin-right-anchor',
       {
-        showLevel: 1,
+        showDepth: 1,
+        customClass: 'your-customClass'
         ignore: [
           '/',
           '/api/'
@@ -68,12 +69,21 @@ module.exports = {
 
 ## Param description
 
-### showLevel
+### showDepth
+
+  !!! `showLevel` is abandoned in `0.3.x`， but it's still compatible ( Not recommended ).
 
   Which level of title will be used in the right anchor display.
   The pointing meaning of the value is the same as [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F).
 
   - Type: null | number
+  - Default: null
+
+### customClass
+
+  Your customClass for right-anchor.
+
+  - Type: null | string
   - Default: null
 
 ### ignore
@@ -82,3 +92,16 @@ module.exports = {
 
   - Type: array
   - Default: []
+
+## Page Config
+
+  Set `front-matter` by `vuepress` recommended method in `.md`.
+
+  ```YAML
+  ---
+  rightAnchor: 
+    showDepth: 1
+    customClass: your-customClass
+  ---
+  ```
+

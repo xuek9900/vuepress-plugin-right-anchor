@@ -38,13 +38,13 @@ module.exports = {
 ```
 
 ## 样式
-在 `.vuepress/styles/palette.js` 添加样式变量。
+在 `.vuepress/styles/palette.styl` 添加样式变量。
 
 ```stylus
 $rightAnchorBgColor = #fff
 ```
 
-## 配置
+## 全局配置
 在 `.vuepress/config.js` 添加如下配置。 
 ```js
 module.exports = {
@@ -68,12 +68,21 @@ module.exports = {
 
 ## 参数说明
 
-### showLevel
+### showDepth
+
+  !!! `showLevel` 已经被废弃在 `0.3.x`， 但依然兼容（不推荐使用）。
 
   在右锚显示中将使用哪一级别的标题。
-  该值的指向含义与 [themeconfig.sidebardept](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F) 相同。
+  该值的指向含义与 [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F) 相同。
 
   - Type: null | number
+  - Default: null
+
+### customClass
+
+  自定义的 `right-anchor` 类名。
+
+  - Type: null | string
   - Default: null
 
 ### ignore
@@ -82,3 +91,15 @@ module.exports = {
 
   - Type: array
   - Default: []
+
+## 页面单独配置
+
+  在 `.md` 中通过 `vuepress` 推荐的方式设置 `front-matter`。
+
+  ```YAML
+  ---
+  rightAnchor: 
+    showDepth: 1
+    customClass: your-customClass
+  ---
+  ```

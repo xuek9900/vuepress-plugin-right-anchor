@@ -6,11 +6,14 @@ module.exports = (options = {}, ctx) => {
       path.resolve(__dirname, 'enhanceAppFile.js')
     ],
     extendPageData($page) {
-      const { showLevel, ignore = [] } = options
+      if (!$page.frontmatter.rightAnchor) {
+        const { showDepth = null, showLevel = null, ignore = [], customClass = null } = options
 
-      $page.rightAnchor = {
-        isIgnore: ignore.includes($page.regularPath),
-        showLevel: showLevel ? showLevel + 1 : null
+        $page.rightAnchor = {
+          isIgnore: ignore.includes($page.regularPath),
+          showDepth: showDepth || showLevel,
+          customClass
+        }
       }
     },
     globalUIComponents: 'RightAnchor'

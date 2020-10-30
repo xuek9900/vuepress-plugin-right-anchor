@@ -17,7 +17,6 @@
     <button v-else="hover" class="page-toc-button">&#9776;</button>
 
   </div>
-
 </template>
 
 <script>
@@ -38,6 +37,11 @@ export default {
       this.filterDataByLevel();
     },
   },
+  computed: {
+    rightAnchorOption: function () {
+      return this.$page.frontmatter.rightAnchor || this.$page.rightAnchor
+    }
+  },
   methods: {
     itemClick(index, slug) {
       this.activeIndex = index;
@@ -50,13 +54,21 @@ export default {
     filterDataByLevel() {
       this.listData = [];
 
-      if (this.$page.rightAnchor.isIgnore || !this.$page.headers) return;
+      const { headers } = this.$page;
+      const { isIgnore, showDepth } = this.rightAnchorOption;
 
-      if (this.$page.rightAnchor.showLevel === null) {
-        this.listData = JSON.parse(JSON.stringify(this.$page.headers));
-      } else {
-        this.$page.headers.forEach((item) => {
-          if (item.level === this.$page.rightAnchor.showLevel) {
+      if (
+        isIgnore ||
+        showDepth === 0 ||
+        !headers
+      ) return;
+
+      if (!showDepth) {
+        this.listData = JSON.parse(JSON.stringify(headers));
+      } 
+      else {
+        headers.forEach((item) => {
+          if (item.level <= showDepth + 1) {
             this.listData.push(JSON.parse(JSON.stringify(item)));
           }
         });
@@ -136,8 +148,7 @@ $pageMenuTextColor = white;
       padding-left: 24px;
     }
 
-    &:hover,
-    &.active {
+    &:hover, &.active {
       color: $accentColor;
       border-left: 1px solid $accentColor;
       padding-left: 15px;
