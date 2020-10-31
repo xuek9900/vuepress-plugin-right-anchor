@@ -1,7 +1,7 @@
 {
   "name": "vuepress-plugin-right-anchor",
-  "version": "0.4.0",
-  "description": "Right-anchor plugin for vuepres",
+  "version": "0.4.1",
+  "description": "Right-anchor plugin for vuepress",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
