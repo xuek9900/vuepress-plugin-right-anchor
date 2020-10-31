@@ -41,7 +41,6 @@
 
 <script>
 import debounce from "lodash.debounce";
-import { defaultExpand } from "./index.js";
 
 export default {
   name: "right-anchor",
@@ -64,8 +63,10 @@ export default {
     expandOption: function () {
       return (
         this.$page.frontmatter.rightAnchor?.expand ||
-        this.$page.rightAnchor?.expand ||
-        defaultExpand
+        this.$page.rightAnchor?.expand || {
+          default: true,
+          trigger: "hover",
+        }
       );
     },
   },
