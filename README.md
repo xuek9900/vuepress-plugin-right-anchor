@@ -10,13 +10,16 @@ English ｜[中文](./zh-README.md)
 
 > Add **anchor navigation bar** to the right of the document page written in vuepress
 
+
 ## Features
   - Simplify the structure of the left sidebar without losing the function of Title navigation within the page。
   - Click anchor label page over scrolling。
   - When the page scrolls, the corresponding anchor label follows the highlight。
 
+
 ## Sample
   [soonspacejs document](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/sbm.html)
+
 
 ## Install
 ```bash
@@ -24,6 +27,7 @@ yarn add vuepress-plugin-right-anchor -D
 # or
 npm i vuepress-plugin-right-anchor -D
 ```
+
 
 ## Use
 Add in `.vuepress/config.js`
@@ -37,12 +41,16 @@ module.exports = {
 }
 ```
 
+
 ## Style
 Add in `.vuepress/styles/palette.styl`
 
 ```stylus
-$rightAnchorBgColor = #fff
+$rightAnchorBgColor = #fff;
+$rightAnchorTextColor = $textColor;
+$rightAnchorFontSize = 14px;
 ```
+
 
 ## Global Config
 Add in `.vuepress/config.js`
@@ -55,12 +63,16 @@ module.exports = {
       'vuepress-plugin-right-anchor',
       {
         showDepth: 1,
-        customClass: 'your-customClass'
         ignore: [
           '/',
           '/api/'
           // more...
-        ]
+        ],
+        expand: {
+          default: true,
+          trigger: 'hover'
+        },
+        customClass: 'your-customClass'
       }
     ]
   ]
@@ -79,6 +91,28 @@ module.exports = {
   - Type: null | number
   - Default: null
 
+### ignore
+
+  Don't show right-anchor's page.
+
+  - Type: array
+  - Default: []
+
+### expand
+
+  About expand configuration of menu.
+
+  - Type: object
+    - default: boolean => Whether to default expand menu?
+    - trigger: string  => The trigger mode of the expand menu. `'hover' | 'click'`
+  - Default:
+      ```js
+      {
+        default: true,
+        trigger: 'hover'
+      }
+      ```
+
 ### customClass
 
   Your customClass for right-anchor.
@@ -86,12 +120,6 @@ module.exports = {
   - Type: null | string
   - Default: null
 
-### ignore
-
-  Don't show right-anchor's page.
-
-  - Type: array
-  - Default: []
 
 ## Page Config
 
@@ -101,6 +129,9 @@ module.exports = {
   ---
   rightAnchor: 
     showDepth: 1
+    expand:
+      default: true
+      trigger: hover
     customClass: your-customClass
   ---
   ```

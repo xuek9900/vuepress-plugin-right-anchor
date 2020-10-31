@@ -41,7 +41,9 @@ module.exports = {
 在 `.vuepress/styles/palette.styl` 添加样式变量。
 
 ```stylus
-$rightAnchorBgColor = #fff
+$rightAnchorBgColor = #fff;
+$rightAnchorTextColor = $textColor;
+$rightAnchorFontSize = 14px;
 ```
 
 ## 全局配置
@@ -78,19 +80,33 @@ module.exports = {
   - Type: null | number
   - Default: null
 
-### customClass
-
-  自定义的 `right-anchor` 类名。
-
-  - Type: null | string
-  - Default: null
-
 ### ignore
 
   不显示 right-anchor 的页面。
 
   - Type: array
   - Default: []
+
+### expand
+
+  关于菜单的展开配置。
+
+  - Type: object
+    - default: boolean => 是否默认展开菜单?
+    - trigger: string  => 展开菜单的触发方式。 `'hover' | 'click'`
+  - Default:
+      ```js
+      {
+        default: true,
+        trigger: 'hover'
+      }
+
+### customClass
+
+  自定义的 `right-anchor` 类名。
+
+  - Type: null | string
+  - Default: null
 
 ## 页面单独配置
 
@@ -100,6 +116,9 @@ module.exports = {
   ---
   rightAnchor: 
     showDepth: 1
+    expand:
+      default: true
+      trigger: hover
     customClass: your-customClass
   ---
   ```

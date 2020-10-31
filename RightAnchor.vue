@@ -1,26 +1,45 @@
 <template>
-  <div v-if="listData && listData.length > 0" class="page-toc-wrapper" 
-    @mouseover="hover = true"
-    @mouseleave="hover = false" >
-
-    <ul v-if="hover" class="page-toc-menu">
+  <div
+    v-if="listData && listData.length > 0"
+    class="ra-wrapper"
+    :class="rightAnchorOption.customClass"
+    @mouseover="mouseover"
+    @mouseleave="mouseleave"
+  >
+    <div
+      v-if="!expandOption.default || expandOption.trigger === 'click'"
+      class="ra-button"
+      @click="btnClick"
+    >
+      <svg
+        class="icon"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        role="img"
+        viewBox="0 0 448 512"
+      >
+        <path
+          fill="currentColor"
+          d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"
+          class=""
+        />
+      </svg>
+    </div>
+    <ul v-if="expanded" class="ra-menu">
       <li
-        class="page-toc-menu-item"
+        class="ra-menu-item"
         v-for="(item, index) in listData"
         :key="index"
         @click="itemClick(index, item.slug)"
         :class="{ active: index === activeIndex, sub: item.level === 3 }"
-      >{{ item.title }}</li>
-    
-    </ul>  
-    
-    <button v-else="hover" class="page-toc-button">&#9776;</button>
-
+      >
+        {{ item.title }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-
 import debounce from "lodash.debounce";
 
 export default {
@@ -29,7 +48,7 @@ export default {
     return {
       listData: [],
       activeIndex: null,
-      hover: false,
+      expanded: true,
     };
   },
   watch: {
@@ -39,10 +58,31 @@ export default {
   },
   computed: {
     rightAnchorOption: function () {
-      return this.$page.frontmatter.rightAnchor || this.$page.rightAnchor
-    }
+      return this.$page.frontmatter.rightAnchor || this.$page.rightAnchor;
+    },
+    expandOption: function () {
+      return (
+        this.$page.frontmatter.rightAnchor?.expand ||
+        this.$page.rightAnchor.expand
+      );
+    },
   },
   methods: {
+    mouseover() {
+      if (this.expandOption.trigger === "hover" && !this.expandOption.default) {
+        this.expanded = true;
+      }
+    },
+    mouseleave() {
+      if (this.expandOption.trigger === "hover" && !this.expandOption.default) {
+        this.expanded = false;
+      }
+    },
+    btnClick() {
+      if (this.expandOption.trigger === "click") {
+        this.expanded = !this.expanded;
+      }
+    },
     itemClick(index, slug) {
       this.activeIndex = index;
 
@@ -57,16 +97,11 @@ export default {
       const { headers } = this.$page;
       const { isIgnore, showDepth } = this.rightAnchorOption;
 
-      if (
-        isIgnore ||
-        showDepth === 0 ||
-        !headers
-      ) return;
+      if (isIgnore || showDepth === 0 || !headers) return;
 
       if (!showDepth) {
         this.listData = JSON.parse(JSON.stringify(headers));
-      } 
-      else {
+      } else {
         headers.forEach((item) => {
           if (item.level <= showDepth + 1) {
             this.listData.push(JSON.parse(JSON.stringify(item)));
@@ -102,6 +137,10 @@ export default {
       );
     },
   },
+  created() {
+    // console.log(this)
+    this.expanded = this.expandOption.default;
+  },
   mounted() {
     this.filterDataByLevel();
 
@@ -121,73 +160,79 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+$rightAnchorBgColor ?= #fff;
+$rightAnchorTextColor ?= $textColor;
+$rightAnchorFontSize ?= 14px;
 
-$pageMenuBgColor = dimgray;
-$pageMenuTextColor = white;
-//$pageMenuBgColor = lightblue;
+.ra {
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    margin: 0;
+    top: $navbarHeight;
+    max-height: 75vh;
+    right: 0;
+    z-index: 1;
+  }
 
-
-.page-toc-menu {
-  z-index: 1;
-  background-color: $pageMenuBgColor;
-  margin: 10px 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  
-  &-item {
-    display: block;
-    padding: 4px 16px;
-    //font-size: 12px;
-    margin-left: -1px;
-    text-decoration: none;
-    display: block;
+  &-button {
     cursor: pointer;
-    color: $pageMenuTextColor;
+    margin-left: calc(100% - 3.2rem - 2.5rem);
+    width: 2rem;
+    height: 2rem;
+    padding: 0.6rem;
+    color: $rightAnchorTextColor;
 
-    &.sub {
-      padding-left: 24px;
+    .icon {
+      width: 2rem;
+      height: 2rem;
     }
 
-    &:hover, &.active {
+    &:hover {
       color: $accentColor;
-      border-left: 1px solid $accentColor;
-      padding-left: 15px;
+    }
+  }
+
+  &-menu {
+    padding: 12px 0 12px 0;
+    background-color: $rightAnchorBgColor;
+    border-left: 1px solid $borderColor;
+    font-size: $rightAnchorFontSize;
+    overflow-y: auto;
+    max-height: calc(100% - 3.2rem);
+    margin: 0;
+
+    &-item {
+      display: block;
+      padding: 4px 12px 4px 24px;
+      margin-left: -1px;
+      text-decoration: none;
+      display: block;
+      cursor: pointer;
+      color: $rightAnchorTextColor;
 
       &.sub {
-        padding-left: 23px;
+        padding: 2px 12px 2px 32px;
+      }
+
+      &:hover, &.active {
+        color: $accentColor;
+        border-left: 2px solid $accentColor;
+        padding-left: 22px;
+
+        &.sub {
+          padding-left: 30px;
+        }
       }
     }
   }
-}
 
-.page-toc-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  padding: 8px 0;
-  margin: 0;
-  top: $navbarHeight;
-  max-height: 75vh;
-  right: 0;
-  overflow-y: auto;
-  
-  
-}
-.page-toc-button {
-  font-size: 25px;
-  color: #fff;
-  border-radius: 45%;
-  background-color: #00000070;
-  border-color: #00000080;
-  padding: 10px;
-  margin: 25px 20px;
-}
-
-
-@media (max-width: $MQMobile) {
-  .page-toc-wrapper {
-    display: none;
+  @media (max-width: $MQMobile) {
+    .ra-wrapper {
+      display: none;
+    }
   }
 }
 </style>
