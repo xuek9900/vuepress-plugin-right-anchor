@@ -23,6 +23,6 @@ module.exports = (options = {}, ctx) => {
       // TODO: Delete below when no longer support `showLevel`
       $page.rightAnchor.showDepth = $page.rightAnchor.showLevel
     },
-    globalUIComponents: 'RightAnchor'
+    globalUIComponents: options.disableGlobalUI ? [] : ['GlobalRightAnchor']
   }
 }
