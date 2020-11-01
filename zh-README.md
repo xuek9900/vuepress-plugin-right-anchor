@@ -14,6 +14,7 @@
   - 简化左侧边栏结构的同时不丢失页面内标题导航的功能。
   - 点击锚点标签页面滚动过度。
   - 页面滚动时对应锚点标签跟随高亮。
+  - 禁用全局 UI。
 
 ## 示例
   [soonspacejs 文档](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/sbm.html)
@@ -61,7 +62,13 @@ module.exports = {
           '/',
           '/api/'
           // 更多...
-        ]
+        ],
+        expand: {
+          default: true,
+          trigger: 'hover'
+        },
+        customClass: 'your-customClass',
+        disableGlobalUI: false,
       }
     ]
   ]
@@ -108,6 +115,22 @@ module.exports = {
   - Type: null | string
   - Default: null
 
+### disableGlobalUI
+
+  禁用所有页面的全局 UI。
+
+  - Type: boolean
+  - Default: false
+
+  如果你需要禁用特定页面的全局 UI，试试 `frontmatter`:
+
+  ```YAML
+  ---
+  rightAnchor:
+    disableGlobalUI: true
+  ---
+  ```
+
 ## 页面单独配置
 
   在 `.md` 中通过 `vuepress` 推荐的方式设置 `front-matter`。
@@ -120,5 +143,6 @@ module.exports = {
       default: true
       trigger: hover
     customClass: your-customClass
+    disableGlobalUI: true
   ---
   ```

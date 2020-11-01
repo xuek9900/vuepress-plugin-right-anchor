@@ -143,7 +143,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$page.rightAnchor)
     this.expanded = this.expandOption.default;
   },
   mounted() {
