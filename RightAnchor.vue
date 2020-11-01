@@ -52,22 +52,16 @@ export default {
     };
   },
   watch: {
-    "$page.regularPath": function () {
+    "$page.regularPath"() {
       this.filterDataByLevel();
     },
   },
   computed: {
-    rightAnchorOption: function () {
-      return this.$page.frontmatter.rightAnchor || this.$page.rightAnchor;
+    rightAnchorOption() {
+      return this.$page.rightAnchor;
     },
-    expandOption: function () {
-      return (
-        this.$page.frontmatter.rightAnchor?.expand ||
-        this.$page.rightAnchor?.expand || {
-          default: true,
-          trigger: "hover",
-        }
-      );
+    expandOption() {
+      return this.$page.rightAnchor.expand
     },
   },
   methods: {
