@@ -189,15 +189,15 @@ $rightAnchorFontSize ?= 14px;
 
   &-button {
     cursor: pointer;
-    margin-left: calc(100% - 3.2rem - 2.5rem);
-    width: 2rem;
-    height: 2rem;
-    padding: 0.6rem;
+    margin-left: calc(100% - 1.75rem - 0.8rem * 2);
+    width: 1.75rem;
+    height: 1.75rem;
+    padding: 0.8rem;
     color: $rightAnchorTextColor;
 
     .icon {
-      width: 2rem;
-      height: 2rem;
+      width: 1.75rem;
+      height: 1.75rem;
     }
 
     &:hover {
@@ -211,7 +211,7 @@ $rightAnchorFontSize ?= 14px;
     border-left: 1px solid $borderColor;
     font-size: $rightAnchorFontSize;
     overflow-y: auto;
-    max-height: calc(100% - 3.2rem);
+    max-height: calc(100% - 1.75rem - 0.8rem * 2);
     margin: 0;
 
     &-item {

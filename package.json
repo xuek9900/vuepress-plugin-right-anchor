@@ -1,6 +1,6 @@
 {
   "name": "vuepress-plugin-right-anchor",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Right-anchor plugin for vuepress",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,10 @@
     "right",
     "anchor"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuekai-china/vuepress-plugin-right-anchor.git"
+  },
   "author": "xuek",
   "license": "ISC",
   "dependencies": {
