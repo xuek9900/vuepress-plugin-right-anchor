@@ -12,9 +12,10 @@ English ｜[中文](./zh-README.md)
 
 
 ## Features
-  - Simplify the structure of the left sidebar without losing the function of Title navigation within the page。
-  - Click anchor label page over scrolling。
-  - When the page scrolls, the corresponding anchor label follows the highlight。
+  - Simplify the structure of the left sidebar without losing the function of Title navigation within the page.
+  - Click anchor label page over scrolling.
+  - When the page scrolls, the corresponding anchor label follows the highlight.
+  - Disable global ui component.
 
 
 ## Sample
@@ -72,7 +73,8 @@ module.exports = {
           default: true,
           trigger: 'hover'
         },
-        customClass: 'your-customClass'
+        customClass: 'your-customClass',
+        disableGlobalUI: false,
       }
     ]
   ]
@@ -120,6 +122,21 @@ module.exports = {
   - Type: null | string
   - Default: null
 
+### disableGlobalUI
+
+  Disable globalUIComponent in every page.
+
+  - Type: boolean
+  - Default: false
+
+  If you want disable globalUIComponent in specific page, try `frontmatter`
+
+  ```YAML
+  ---
+  rightAnchor:
+    disableGlobalUI: true
+  ---
+  ```
 
 ## Page Config
 
@@ -133,6 +150,7 @@ module.exports = {
       default: true
       trigger: hover
     customClass: your-customClass
+    disableGlobalUI: false
   ---
   ```
 

@@ -1,8 +1,8 @@
 <template>
   <div
-    v-if="listData && listData.length > 0"
+    v-if="visible"
     class="ra-wrapper"
-    :class="rightAnchorOption.customClass"
+    :class="[rightAnchorOption.customClass, global && 'is-global']"
     @mouseover="mouseover"
     @mouseleave="mouseleave"
   >
@@ -44,6 +44,9 @@ import debounce from "lodash.debounce";
 
 export default {
   name: "right-anchor",
+  props: {
+    global: Boolean
+  },
   data() {
     return {
       listData: [],
@@ -52,22 +55,21 @@ export default {
     };
   },
   watch: {
-    "$page.regularPath": function () {
+    "$page.regularPath"() {
       this.filterDataByLevel();
     },
   },
   computed: {
-    rightAnchorOption: function () {
-      return this.$page.frontmatter.rightAnchor || this.$page.rightAnchor;
+    visible () {
+      return this.listData &&
+      this.listData.length &&
+      !(this.rightAnchorOption.disableGlobalUI && this.global)
     },
-    expandOption: function () {
-      return (
-        this.$page.frontmatter.rightAnchor?.expand ||
-        this.$page.rightAnchor?.expand || {
-          default: true,
-          trigger: "hover",
-        }
-      );
+    rightAnchorOption() {
+      return this.$page.rightAnchor;
+    },
+    expandOption() {
+      return this.$page.rightAnchor.expand
     },
   },
   methods: {
@@ -141,7 +143,6 @@ export default {
     },
   },
   created() {
-    // console.log(this)
     this.expanded = this.expandOption.default;
   },
   mounted() {
@@ -171,13 +172,19 @@ $rightAnchorFontSize ?= 14px;
   &-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    position: fixed;
     margin: 0;
-    top: $navbarHeight;
     max-height: 75vh;
-    right: 0;
-    z-index: 1;
+
+    &.is-global {
+      position: fixed;
+      top: $navbarHeight;
+      right: 0;
+      z-index: 1;
+
+      .ra-menu {
+        align-items: center;
+      }
+    }
   }
 
   &-button {

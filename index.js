@@ -6,29 +6,23 @@ module.exports = (options = {}, ctx) => {
       path.resolve(__dirname, 'enhanceAppFile.js')
     ],
     extendPageData($page) {
-      if (!$page.frontmatter.rightAnchor) {
+      const { rightAnchor: frontmatterOptions = {} } = $page.frontmatter
 
-        const defaultExpand = {
+      $page.rightAnchor = {
+        ...options,
+        ...frontmatterOptions,
+        isIgnore: Array.isArray(options.ignore) && options.ignore.includes($page.regularPath),
+        expand: {
           default: true,
-          trigger: 'hover'
-        }
-
-        const {
-          showDepth = null,
-          showLevel = null,
-          ignore = [],
-          expand = defaultExpand,
-          customClass = null
-        } = options
-        
-        $page.rightAnchor = {
-          isIgnore: ignore.includes($page.regularPath),
-          showDepth: showDepth || showLevel,
-          expand,
-          customClass
-        }
+          trigger: 'hover',
+          ...options.expand,
+          ...frontmatterOptions.expand
+        },
       }
+
+      // TODO: Delete below when no longer support `showLevel`
+      $page.rightAnchor.showDepth = $page.rightAnchor.showLevel
     },
-    globalUIComponents: 'RightAnchor'
+    globalUIComponents: options.disableGlobalUI ? [] : ['GlobalRightAnchor']
   }
 }
