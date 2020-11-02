@@ -69,7 +69,7 @@ export default {
       return this.$page.rightAnchor;
     },
     expandOption() {
-      return this.$page.rightAnchor.expand
+      return this.$page.rightAnchor?.expand
     },
   },
   methods: {
@@ -143,7 +143,7 @@ export default {
     },
   },
   created() {
-    this.expanded = this.expandOption.default;
+    this.expanded = this.expandOption?.default;
   },
   mounted() {
     this.filterDataByLevel();
