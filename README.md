@@ -50,6 +50,11 @@ Add in `.vuepress/styles/palette.styl`
 $rightAnchorBgColor = #fff;
 $rightAnchorTextColor = $textColor;
 $rightAnchorFontSize = 14px;
+// btn
+$rightAnchorBtnTextColor = $rightAnchorTextColor;
+$rightAnchorBtnBgColor = $rightAnchorBgColor;
+// menu
+$rightAnchorMenuTextColor = $rightAnchorTextColor;
 ```
 
 

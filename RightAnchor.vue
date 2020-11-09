@@ -168,6 +168,12 @@ $rightAnchorBgColor ?= #fff;
 $rightAnchorTextColor ?= $textColor;
 $rightAnchorFontSize ?= 14px;
 
+// btn
+$rightAnchorBtnTextColor ?= $rightAnchorTextColor;
+$rightAnchorBtnBgColor ?= $rightAnchorBgColor;
+// menu
+$rightAnchorMenuTextColor ?= $rightAnchorTextColor;
+
 .ra {
   &-wrapper {
     display: flex;
@@ -189,11 +195,14 @@ $rightAnchorFontSize ?= 14px;
 
   &-button {
     cursor: pointer;
+    padding: 0.6rem;
+    margin: 0.2rem;
     margin-left: calc(100% - 1.75rem - 0.8rem * 2);
     width: 1.75rem;
     height: 1.75rem;
-    padding: 0.8rem;
-    color: $rightAnchorTextColor;
+    color: $rightAnchorBtnTextColor;
+    background-color: $rightAnchorBtnBgColor;
+    border-radius: 4px;
 
     .icon {
       width: 1.75rem;
@@ -221,7 +230,7 @@ $rightAnchorFontSize ?= 14px;
       text-decoration: none;
       display: block;
       cursor: pointer;
-      color: $rightAnchorTextColor;
+      color: $rightAnchorMenuTextColor;
 
       &.sub {
         padding: 2px 12px 2px 32px;

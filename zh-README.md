@@ -45,6 +45,11 @@ module.exports = {
 $rightAnchorBgColor = #fff;
 $rightAnchorTextColor = $textColor;
 $rightAnchorFontSize = 14px;
+// btn
+$rightAnchorBtnTextColor = $rightAnchorTextColor;
+$rightAnchorBtnBgColor = $rightAnchorBgColor;
+// menu
+$rightAnchorMenuTextColor = $rightAnchorTextColor;
 ```
 
 ## 全局配置
