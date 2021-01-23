@@ -17,7 +17,7 @@
   - 禁用全局 UI。
 
 ## 示例
-  [soonspacejs 文档](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/sbm.html)
+  [soonspacejs 文档](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/basics/sbm.html)
 
 ## 安装
 ```bash
