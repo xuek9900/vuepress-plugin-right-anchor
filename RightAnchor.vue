@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import debounce from "lodash.debounce";
+import throttle from "lodash.throttle";
 
 export default {
   name: "right-anchor",
@@ -150,14 +150,14 @@ export default {
 
     window.addEventListener(
       "scroll",
-      debounce(() => {
+      throttle(() => {
         const scrollTop = this.getScrollTop();
 
         this.listData.map((item, index) => {
           if (item.offsetTop && scrollTop >= item.offsetTop)
             this.activeIndex = index;
         });
-      }, 300)
+      }, 100)
     );
   },
 };
@@ -167,12 +167,6 @@ export default {
 $rightAnchorBgColor ?= #fff;
 $rightAnchorTextColor ?= $textColor;
 $rightAnchorFontSize ?= 14px;
-
-// btn
-$rightAnchorBtnTextColor ?= $rightAnchorTextColor;
-$rightAnchorBtnBgColor ?= $rightAnchorBgColor;
-// menu
-$rightAnchorMenuTextColor ?= $rightAnchorTextColor;
 
 .ra {
   &-wrapper {
@@ -195,14 +189,11 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
 
   &-button {
     cursor: pointer;
-    padding: 0.6rem;
-    margin: 0.2rem;
     margin-left: calc(100% - 1.75rem - 0.8rem * 2);
     width: 1.75rem;
     height: 1.75rem;
-    color: $rightAnchorBtnTextColor;
-    background-color: $rightAnchorBtnBgColor;
-    border-radius: 4px;
+    padding: 0.8rem;
+    color: $rightAnchorTextColor;
 
     .icon {
       width: 1.75rem;
@@ -230,7 +221,7 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
       text-decoration: none;
       display: block;
       cursor: pointer;
-      color: $rightAnchorMenuTextColor;
+      color: $rightAnchorTextColor;
 
       &.sub {
         padding: 2px 12px 2px 32px;
