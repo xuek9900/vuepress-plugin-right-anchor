@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import debounce from "lodash.throttle";
+import throttle from "lodash.throttle";
 
 export default {
   name: "right-anchor",
