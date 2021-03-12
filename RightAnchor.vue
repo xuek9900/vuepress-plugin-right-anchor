@@ -180,6 +180,7 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
     flex-direction: column;
     margin: 0;
     max-height: 75vh;
+    min-width: 140px;
 
     &.is-global {
       position: fixed;
