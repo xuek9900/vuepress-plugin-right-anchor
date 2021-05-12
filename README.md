@@ -19,7 +19,7 @@ English ｜[中文](./zh-README.md)
 
 
 ## Sample
-  [soonspacejs document](http://www.xwbuilders.com:9018/soonspacejs/Docs/api/basics/sbm.html)
+  [soonspacejs document](http://www.xwbuilders.com:9018/soonspacejs/Docs/1.x/api/basics/sbm.html)
 
 
 ## Install
