@@ -69,8 +69,8 @@ module.exports = {
           // 更多...
         ],
         expand: {
-          default: true,
-          trigger: 'hover'
+          trigger: 'hover'，
+          clickModeDefaultOpen: true
         },
         customClass: 'your-customClass',
         disableGlobalUI: false,
@@ -84,7 +84,7 @@ module.exports = {
 
 ### showDepth
 
-  !!! `showLevel` 已经被废弃在 `0.3.x`， 但依然兼容（不推荐使用）。
+  !!! `showLevel` 已经被废弃在 `0.3.x`。
 
   在右锚显示中将使用哪一级别的标题。
   该值的指向含义与 [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F) 相同。
@@ -104,13 +104,13 @@ module.exports = {
   关于菜单的展开配置。
 
   - Type: object
-    - default: boolean => 是否默认展开菜单?
     - trigger: string  => 展开菜单的触发方式。 `'hover' | 'click'`
+    - clickModeDefaultOpen: boolean => 点击模式下是否默认打开菜单?
   - Default:
       ```js
       {
-        default: true,
-        trigger: 'hover'
+        trigger: 'hover',
+        clickModeDefaultOpen: true
       }
 
 ### customClass
@@ -145,8 +145,8 @@ module.exports = {
   rightAnchor: 
     showDepth: 1
     expand:
-      default: true
       trigger: hover
+      clickModeDefaultOpen: true
     customClass: your-customClass
     disableGlobalUI: true
   ---

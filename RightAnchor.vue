@@ -2,15 +2,11 @@
   <div
     v-if="visible"
     class="ra-wrapper"
-    :class="[rightAnchorOption.customClass, global && 'is-global']"
+    :class="[rightAnchorOptions.customClass, global && 'is-global']"
     @mouseover="mouseover"
     @mouseleave="mouseleave"
   >
-    <div
-      v-if="!expandOption.default || expandOption.trigger === 'click'"
-      class="ra-button"
-      @click="btnClick"
-    >
+    <div class="ra-button" @click="btnClick">
       <svg
         class="icon"
         xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +21,7 @@
         />
       </svg>
     </div>
-    <ul v-if="expanded" class="ra-menu">
+    <ul v-show="opened" class="ra-menu">
       <li
         class="ra-menu-item"
         v-for="(item, index) in listData"
@@ -45,13 +41,13 @@ import throttle from "lodash.throttle";
 export default {
   name: "right-anchor",
   props: {
-    global: Boolean
+    global: Boolean,
   },
   data() {
     return {
       listData: [],
       activeIndex: null,
-      expanded: true,
+      opened: false,
     };
   },
   watch: {
@@ -60,32 +56,34 @@ export default {
     },
   },
   computed: {
-    visible () {
-      return this.listData &&
-      this.listData.length &&
-      !(this.rightAnchorOption.disableGlobalUI && this.global)
+    visible() {
+      return (
+        this.listData &&
+        this.listData.length &&
+        !(this.rightAnchorOptions.disableGlobalUI && this.global)
+      );
     },
-    rightAnchorOption() {
+    rightAnchorOptions() {
       return this.$page.rightAnchor;
     },
-    expandOption() {
-      return this.$page.rightAnchor?.expand
+    expandOptions() {
+      return this.$page.rightAnchor?.expand;
     },
   },
   methods: {
     mouseover() {
-      if (this.expandOption.trigger === "hover" && !this.expandOption.default) {
-        this.expanded = true;
+      if (this.expandOptions.trigger === "hover") {
+        this.opened = true;
       }
     },
     mouseleave() {
-      if (this.expandOption.trigger === "hover" && !this.expandOption.default) {
-        this.expanded = false;
+      if (this.expandOptions.trigger === "hover") {
+        this.opened = false;
       }
     },
     btnClick() {
-      if (this.expandOption.trigger === "click") {
-        this.expanded = !this.expanded;
+      if (this.expandOptions.trigger === "click") {
+        this.opened = !this.opened;
       }
     },
     itemClick(index, slug) {
@@ -100,7 +98,7 @@ export default {
       this.listData = [];
 
       const { headers } = this.$page;
-      const { isIgnore, showDepth } = this.rightAnchorOption;
+      const { isIgnore, showDepth } = this.rightAnchorOptions;
 
       if (isIgnore || showDepth === 0 || !headers) return;
 
@@ -143,7 +141,8 @@ export default {
     },
   },
   created() {
-    this.expanded = this.expandOption?.default;
+    if (this.expandOptions?.trigger === "click")
+      this.opened = this.expandOptions?.clickModeDefaultOpen;
   },
   mounted() {
     this.filterDataByLevel();
@@ -167,7 +166,6 @@ export default {
 $rightAnchorBgColor ?= #fff;
 $rightAnchorTextColor ?= $textColor;
 $rightAnchorFontSize ?= 14px;
-
 // btn
 $rightAnchorBtnTextColor ?= $rightAnchorTextColor;
 $rightAnchorBtnBgColor ?= $rightAnchorBgColor;
@@ -195,15 +193,16 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
   }
 
   &-button {
-    cursor: pointer;
+    position: absolute;
+    right: 0.2rem;
     padding: 0.6rem;
     margin: 0.2rem;
-    margin-left: calc(100% - 1.75rem - 0.8rem * 2);
     width: 1.75rem;
     height: 1.75rem;
     color: $rightAnchorBtnTextColor;
     background-color: $rightAnchorBtnBgColor;
     border-radius: 4px;
+    cursor: pointer;
 
     .icon {
       width: 1.75rem;
@@ -221,8 +220,8 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
     border-left: 1px solid $borderColor;
     font-size: $rightAnchorFontSize;
     overflow-y: auto;
-    max-height: calc(100% - 1.75rem - 0.8rem * 2);
-    margin: 0;
+    max-height: calc(100% - 1.75rem - 0.6rem * 2 + 0.2rem * 2);
+    margin: calc(1.75rem + 0.6rem * 2 + 0.2rem * 2) 0 0 0;
 
     &-item {
       display: block;

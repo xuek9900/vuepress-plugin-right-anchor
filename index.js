@@ -13,15 +13,12 @@ module.exports = (options = {}, ctx) => {
         ...frontmatterOptions,
         isIgnore: Array.isArray(options.ignore) && options.ignore.includes($page.regularPath),
         expand: {
-          default: true,
           trigger: 'hover',
+          clickModeDefaultOpen: true,
           ...options.expand,
           ...frontmatterOptions.expand
         },
       }
-
-      // TODO: Delete below when no longer support `showLevel`
-      $page.rightAnchor.showDepth = $page.rightAnchor.showLevel
     },
     globalUIComponents: options.disableGlobalUI ? [] : ['GlobalRightAnchor']
   }

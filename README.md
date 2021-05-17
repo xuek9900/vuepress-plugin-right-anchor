@@ -6,7 +6,7 @@
 
 </div>
 
-English ｜[中文](./zh-README.md)
+English ｜[中x文](./zh-README.md)
 
 > Add **anchor navigation bar** to the right of the document page written in vuepress
 
@@ -75,8 +75,8 @@ module.exports = {
           // more...
         ],
         expand: {
-          default: true,
-          trigger: 'hover'
+          trigger: 'hover',
+          clickModeDefaultOpen: true
         },
         customClass: 'your-customClass',
         disableGlobalUI: false,
@@ -90,7 +90,7 @@ module.exports = {
 
 ### showDepth
 
-  !!! `showLevel` is abandoned in `0.3.x`， but it's still compatible ( Not recommended ).
+  !!! `showLevel` is abandoned in `0.3.x`.
 
   Which level of title will be used in the right anchor display.
   The pointing meaning of the value is the same as [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F).
@@ -100,7 +100,7 @@ module.exports = {
 
 ### ignore
 
-  Don't show right-anchor's page.
+  Don't show right-anchor's pages.
 
   - Type: array
   - Default: []
@@ -110,13 +110,13 @@ module.exports = {
   About expand configuration of menu.
 
   - Type: object
-    - default: boolean => Whether to default expand menu?
-    - trigger: string  => The trigger mode of the expand menu. `'hover' | 'click'`
+    - trigger: string  => The trigger mode of the open menu. `'hover' | 'click'`
+    - clickModeDefaultOpen: boolean => Click mode is default open?
   - Default:
       ```js
       {
-        default: true,
-        trigger: 'hover'
+        trigger: 'hover',
+        clickModeDefaultOpen: true
       }
       ```
 
@@ -152,8 +152,8 @@ module.exports = {
   rightAnchor: 
     showDepth: 1
     expand:
-      default: true
       trigger: hover
+      clickModeDefaultOpen: true
     customClass: your-customClass
     disableGlobalUI: false
   ---
