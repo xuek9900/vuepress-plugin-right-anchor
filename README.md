@@ -6,7 +6,7 @@
 
 </div>
 
-English ｜[中x文](./zh-README.md)
+English ｜[中文](./zh-README.md)
 
 > Add **anchor navigation bar** to the right of the document page written in vuepress
 
