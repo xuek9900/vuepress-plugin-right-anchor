@@ -27,7 +27,11 @@
         v-for="(item, index) in listData"
         :key="index"
         @click="itemClick(index, item.slug)"
-        :class="{ active: index === activeIndex, sub: item.level === 3 }"
+        :class="[
+          index === activeIndex ? 'active' : '',
+          item.level > 2 ? 'sub' : '',
+          `h${item.level}`,
+        ]"
       >
         {{ item.title }}
       </li>
@@ -141,6 +145,7 @@ export default {
     },
   },
   created() {
+    console.log(this);
     if (this.expandOptions?.trigger === "click")
       this.opened = this.expandOptions?.clickModeDefaultOpen;
   },
@@ -225,15 +230,36 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
 
     &-item {
       display: block;
-      padding: 4px 12px 4px 24px;
+      padding: 4px 12px 4px 16px;
       margin-left: -1px;
       text-decoration: none;
       display: block;
       cursor: pointer;
       color: $rightAnchorMenuTextColor;
 
+      &.h2 {
+        font-weight: bold;
+      }
+
       &.sub {
-        padding: 2px 12px 2px 32px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+
+        &.h3 {
+          padding-left: 24px;
+        }
+
+        &.h4 {
+          padding-left: 32px;
+        }
+
+        &.h5 {
+          padding-left: 40px;
+        }
+
+        &.h6 {
+          padding-left: 48px;
+        }
       }
 
       &:hover, &.active {
@@ -242,7 +268,21 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
         padding-left: 22px;
 
         &.sub {
-          padding-left: 30px;
+          &.h3 {
+            padding-left: 22px;
+          }
+
+          &.h4 {
+            padding-left: 30px;
+          }
+
+          &.h5 {
+            padding-left: 38px;
+          }
+
+          &.h6 {
+            padding-left: 46px;
+          }
         }
       }
     }
