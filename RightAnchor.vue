@@ -145,7 +145,6 @@ export default {
     },
   },
   created() {
-    console.log(this);
     if (this.expandOptions?.trigger === "click")
       this.opened = this.expandOptions?.clickModeDefaultOpen;
   },
@@ -230,14 +229,22 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
 
     &-item {
       display: block;
-      padding: 4px 12px 4px 16px;
+      padding: 4px 12px 4px 0;
       margin-left: -1px;
       text-decoration: none;
       display: block;
       cursor: pointer;
       color: $rightAnchorMenuTextColor;
 
+      &.h1 {
+        padding-left: 2px;
+        font-weight: bold;
+        font-size: $rightAnchorFontSize + 2px;
+        text-align: center;
+      }
+
       &.h2 {
+        padding-left: 16px;
         font-weight: bold;
       }
 
@@ -267,7 +274,16 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
         border-left: 2px solid $accentColor;
         padding-left: 22px;
 
+        &.h1 {
+          padding-left: 0px;
+        }
+
+        &.h2 {
+          padding-left: 14px;
+        }
+
         &.sub {
+
           &.h3 {
             padding-left: 22px;
           }
