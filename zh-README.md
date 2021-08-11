@@ -69,7 +69,7 @@ module.exports = {
           // 更多...
         ],
         expand: {
-          trigger: 'hover'，
+          trigger: 'hover',
           clickModeDefaultOpen: true
         },
         customClass: 'your-customClass',
