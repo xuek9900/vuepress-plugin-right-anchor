@@ -17,7 +17,7 @@
         <path
           fill="currentColor"
           d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"
-          class=""
+          class
         />
       </svg>
     </div>
@@ -32,9 +32,7 @@
           item.level > 2 ? 'sub' : '',
           `h${item.level}`,
         ]"
-      >
-        {{ item.title }}
-      </li>
+      >{{ item.title }}</li>
     </ul>
   </div>
 </template>
@@ -45,19 +43,19 @@ import throttle from "lodash.throttle";
 export default {
   name: "right-anchor",
   props: {
-    global: Boolean,
+    global: Boolean
   },
   data() {
     return {
       listData: [],
       activeIndex: null,
-      opened: false,
+      opened: false
     };
   },
   watch: {
     "$page.regularPath"() {
       this.filterDataByLevel();
-    },
+    }
   },
   computed: {
     visible() {
@@ -72,7 +70,7 @@ export default {
     },
     expandOptions() {
       return this.$page.rightAnchor?.expand;
-    },
+    }
   },
   methods: {
     mouseover() {
@@ -94,8 +92,8 @@ export default {
       this.activeIndex = index;
 
       window.scrollTo({
-        top: document.getElementById(slug).offsetTop,
-        behavior: "smooth",
+        top: document.getElementById(slug)?.offsetTop || 0,
+        behavior: "smooth"
       });
     },
     filterDataByLevel() {
@@ -107,33 +105,10 @@ export default {
       if (isIgnore || showDepth === 0 || !headers) return;
 
       if (!showDepth) {
-        this.listData = JSON.parse(JSON.stringify(headers));
+        this.listData = [...headers];
       } else {
-        headers.forEach((item) => {
-          if (item.level <= showDepth + 1) {
-            this.listData.push(JSON.parse(JSON.stringify(item)));
-          }
-        });
+        this.listData = headers.filter(item => item.level <= showDepth + 1)
       }
-
-      this.$nextTick(() => {
-        this.listData.forEach((item) => {
-          this.getEleById(item.slug).then((el) => {
-            item.offsetTop = el.offsetTop;
-          });
-        });
-      });
-    },
-    getEleById(id) {
-      return new Promise((resolve) => {
-        const t = setInterval(() => {
-          const el = document.getElementById(id);
-          if (el) {
-            clearInterval(t);
-            resolve(el);
-          }
-        }, 100);
-      });
     },
     getScrollTop() {
       return (
@@ -142,27 +117,24 @@ export default {
         document.body.scrollTop ||
         0
       );
-    },
+    }
   },
   created() {
-    if (this.expandOptions?.trigger === "click")
-      this.opened = this.expandOptions?.clickModeDefaultOpen;
-  },
-  mounted() {
     this.filterDataByLevel();
 
+    if (this.expandOptions?.trigger === "click") {
+      this.opened = this.expandOptions?.clickModeDefaultOpen;
+    }
+  },
+  mounted() {
     window.addEventListener(
       "scroll",
       throttle(() => {
         const scrollTop = this.getScrollTop();
-
-        this.listData.map((item, index) => {
-          if (item.offsetTop && scrollTop >= item.offsetTop)
-            this.activeIndex = index;
-        });
+        this.activeIndex = this.listData.findIndex(item => (document.getElementById(item.slug)?.offsetTop || 0) > scrollTop) - 1;
       }, 100)
     );
-  },
+  }
 };
 </script>
 
@@ -283,7 +255,6 @@ $rightAnchorMenuTextColor ?= $rightAnchorTextColor;
         }
 
         &.sub {
-
           &.h3 {
             padding-left: 22px;
           }
