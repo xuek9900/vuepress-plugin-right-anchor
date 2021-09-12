@@ -29,15 +29,13 @@
   color: var(--rightAnchorBtnTextColor);
   border-radius: 4px;
   cursor: pointer;
-  background-color: var(--rightAnchorBtnBgColor);
-  background-image: url(./right-anchor-btn.svg);
 }
 
 .right-anchor-button:hover {
   color: var(--c-text-accent);
 }
 
-.right-anchor-button .icon {
+.right-anchor-button svg {
   width: 1.75rem;
   height: 1.75rem;
 }
@@ -46,7 +44,6 @@
 
 .right-anchor-menu {
   padding: 12px 0 12px 0;
-  background-color: var(--rightAnchorBgColor);
   border-left: 1px solid var(--c-border);
   font-size: var(--rightAnchorFontSize);
   overflow-y: auto;
@@ -77,7 +74,7 @@
   text-align: center;
 }
 
-.right-anchor-menu-item:hover .right-anchor-menu-item.h1, .right-anchor-menu-item:active.h1 {
+.right-anchor-menu-item.h1:hover, .right-anchor-menu-item.h1.active {
   padding-left: 0px;
 }
 
@@ -86,7 +83,7 @@
   font-weight: bold;
 }
 
-.right-anchor-menu-item:hover .right-anchor-menu-item.h2, .right-anchor-menu-item:active.h2 {
+.right-anchor-menu-item.h2:hover, .right-anchor-menu-item.h2.active {
   padding-left: 14px;
 }
 
@@ -99,7 +96,7 @@
   padding-left: 24px;
 }
 
-.right-anchor-menu-item:hover .right-anchor-menu-item.sub.h3, .right-anchor-menu-item:active.sub.h3 {
+.right-anchor-menu-item.sub.h3:hover, .right-anchor-menu-item.sub.h3.active {
   padding-left: 22px;
 }
 
@@ -107,7 +104,7 @@
   padding-left: 32px;
 }
 
-.right-anchor-menu-item:hover .right-anchor-menu-item.sub.h4, .right-anchor-menu-item:active.sub.h4 {
+.right-anchor-menu-item.sub.h4:hover, .right-anchor-menu-item.sub.h4.active {
   padding-left: 30px;
 }
 
@@ -115,7 +112,7 @@
   padding-left: 40px;
 }
 
-.right-anchor-menu-item:hover .right-anchor-menu-item.sub.h5, .right-anchor-menu-item:active.sub.h5 {
+.right-anchor-menu-item.sub.h5:hover, .right-anchor-menu-item.sub.h5.active {
   padding-left: 38px;
 }
 
@@ -123,7 +120,7 @@
   padding-left: 48px;
 }
 
-.right-anchor-menu-item:hover .right-anchor-menu-item.sub.h6, .right-anchor-menu-item:active.sub.h6 {
+.right-anchor-menu-item.sub.h6:hover, .right-anchor-menu-item.sub.h6.active {
   padding-left: 46px;
 }
 

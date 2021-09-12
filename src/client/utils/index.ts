@@ -1,2 +1,2 @@
 export * from './getScrollTop'
-export * from './scrollToTop'
+export * from './scrollTo'

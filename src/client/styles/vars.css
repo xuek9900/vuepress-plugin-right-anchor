@@ -1,10 +1,8 @@
 :root {
-  --rightAnchorBgColor: #fff;
   --rightAnchorTextColor: var(--c-text);
   --rightAnchorFontSize: 14px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
-  --rightAnchorBtnBgColor: var(--rightAnchorBgColor);
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
 }
