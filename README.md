@@ -8,7 +8,7 @@
 
 English ｜[中文](./zh-README.md)
 
-> Add **anchor navigation bar** to the right of the document page written in vuepress
+> Add **anchor navigation bar** to the right of the document page written in Vuepress 2.x
 
 
 ## Features
