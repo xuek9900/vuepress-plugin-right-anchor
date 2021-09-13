@@ -3,6 +3,16 @@ import { path } from '@vuepress/utils'
 export interface RightAnchorPluginOptions {
   showDepth?: number
   ignore?: string[]
+  expand?: {
+    trigger: 'hover' | 'click'
+    clickModeDefaultOpen: boolean
+  }
+  customClass?: string
+}
+
+export interface RightAnchorPageOptions {
+  showDepth?: number
+  isIgnore: boolean
   expand: {
     trigger: 'hover' | 'click'
     clickModeDefaultOpen: boolean
@@ -22,7 +32,7 @@ export const rightAnchorPlugin: Plugin<RightAnchorPluginOptions> = (options = {}
     extendsPageData: (page) => {
       const { rightAnchor: frontmatterOptions = {} } = page.frontmatter
 
-      const rightAnchor: RightAnchorPluginOptions = {
+      const rightAnchor: RightAnchorPageOptions = {
         ...options,
         ...frontmatterOptions as any,
         isIgnore: Array.isArray(options.ignore) && options.ignore.includes((page as any).path),

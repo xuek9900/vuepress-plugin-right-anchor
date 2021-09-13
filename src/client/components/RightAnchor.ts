@@ -1,6 +1,6 @@
-import { defineComponent, h, ref, onMounted, computed } from 'vue'
-import { usePageData, PageHeader } from '@vuepress/client'
-import { RightAnchorPluginOptions } from '../../node/rightAnchorPlugin'
+import { defineComponent, h, ref, onMounted, watch, computed } from 'vue'
+import { usePageData, PageHeader, useRoute } from '@vuepress/client'
+import { RightAnchorPageOptions } from '../../node/rightAnchorPlugin'
 import { getScrollTop, scrollToTitle } from '../utils'
 import { debounce } from 'ts-debounce'
 
@@ -13,9 +13,12 @@ export const RightAnchor = defineComponent({
   name: 'RightAnchor',
 
   setup() {
-    const page = usePageData<{ rightAnchor: RightAnchorPluginOptions }>()
+    const route = useRoute()
+
+    const page = usePageData<{ rightAnchor: RightAnchorPageOptions }>()
+    console.log('usePageData', page)
     const { rightAnchor, headers } = page.value
-    const { customClass = '', expand } = rightAnchor
+    const { customClass = '', expand, isIgnore } = rightAnchor
 
     const menuShow = ref(false)
     if (expand.trigger === 'click') menuShow.value = expand.clickModeDefaultOpen
@@ -28,8 +31,8 @@ export const RightAnchor = defineComponent({
       if (headers.length === 0) return;
 
       headers.forEach((item) => {
-        const { ignore, showDepth } = rightAnchor
-        if (!ignore && (!showDepth || item.level <= showDepth + 1)) {
+        const { showDepth } = rightAnchor
+        if (!showDepth || item.level <= showDepth + 1) {
           headersList.value.push({ ...item })
         }
         filterDataByLevel(item.children)
@@ -38,22 +41,25 @@ export const RightAnchor = defineComponent({
 
     filterDataByLevel(headers)
 
-    const onbtnMouseover = () => {
+    const show = computed(() => !isIgnore && headersList.value.length > 0)
+
+    watch(route, () => {
+      console.log('watch route', route)
+      filterDataByLevel(headers)
+    })
+
+    const onRaMouseover = () => {
       if (expand.trigger === "hover") menuShow.value = true;
-      console.log('onbtnMouseover', menuShow.value)
     }
-    const onbtnMouseleave = () => {
+    const onRaMouseleave = () => {
       if (expand.trigger === "hover") menuShow.value = false;
-      console.log('onbtnMouseleave', menuShow.value)
     }
     const onBtnClick = () => {
       if (expand.trigger === "click") menuShow.value = !menuShow.value;
-      console.log('onBtnClick', menuShow.value)
     }
     const headersListItemClick = (index: number, slug: string) => {
       activeIndex.value = index
       scrollToTitle(slug)
-      console.log('headersListItemClick', activeIndex.value)
     }
 
     const RightAnchorBtnEl = () => h(
@@ -61,8 +67,6 @@ export const RightAnchor = defineComponent({
       {
         class: 'right-anchor-button',
         onClick: onBtnClick,
-        onMouseover: onbtnMouseover,
-        onMouseleave: onbtnMouseleave,
         innerHTML: `
         <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -75,17 +79,17 @@ export const RightAnchor = defineComponent({
 </svg>`
       }
     )
-    const RightAnchorMenuEl = h(
+    const RightAnchorMenuEl = () => h(
       'ul',
       {
         class: 'right-anchor-menu',
-        // style: `display: ${menuShow.value ? 'block' : 'none'}`
+        style: `display: ${menuShow.value ? 'block' : 'none'}`
       },
       headersList.value.map((item, index) =>
         h(
           'li',
           {
-            class: `right-anchor-menu-item ${item.level > 2 ? 'sub' : ''} h${item.level} ${index === activeIndex.value ? 'active' : ''}`,
+            class: `right-anchor-menu-item${item.level > 2 ? ' sub' : ''} h${item.level}${index === activeIndex.value ? ' active' : ''}`,
             onClick: () => headersListItemClick(index, item.slug)
           },
           item.title
@@ -100,18 +104,23 @@ export const RightAnchor = defineComponent({
         'scroll',
         debounce(() => {
           scrollTop.value = getScrollTop()
+
         }, 100)
       )
     })
 
-    return () => h(
+    return () => show.value ? h(
       'div',
-      { class: `right-anchor is-global ${customClass}` },
+      {
+        class: `right-anchor is-global ${customClass}`,
+        onMouseover: onRaMouseover,
+        onMouseleave: onRaMouseleave,
+      },
       [
         RightAnchorBtnEl(),
-        computed(() => menuShow.value).value && RightAnchorMenuEl
+        RightAnchorMenuEl()
       ]
-    )
+    ) : null
   }
 
 })
