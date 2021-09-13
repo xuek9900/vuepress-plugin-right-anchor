@@ -1,13 +1,14 @@
 {
   "name": "vuepress-plugin-right-anchor",
-  "version": "2.0.0-beta.14",
+  "version": "2.0.0-rc.2",
   "description": "Right-anchor plugin for Vuepress 2.x",
   "main": "lib/node/index.js",
   "scripts": {
     "build": "tsc -b tsconfig.json",
     "clean": "rimraf lib *.tsbuildinfo",
-    "copy": "cpx \"src/**/*.{css,svg}\" lib",
-    "pub": "npm run clean && npm run build && npm run copy"
+    "copy": "cpx \"src/**/*.css\" lib",
+    "prePublish": "npm run clean && npm run build && npm run copy",
+    "build:example": "rimraf example/right-anchor && npm run prePublish && cpx \"lib/**/*\" example/right-anchor/lib && cpx package.json example/right-anchor"
   },
   "keywords": [
     "vuepres",

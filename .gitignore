@@ -1,4 +1,7 @@
 lib
+example/right-anchor
+example/docs/.vuepress/.cache
+example/docs/.vuepress/.temp
 
 node_modules
 package-lock.json

@@ -1,4 +1,4 @@
-import { defineComponent, h, ref, onMounted, watch, computed } from 'vue'
+import { defineComponent, h, ref, onMounted, watch } from 'vue'
 import { usePageData, PageHeader, useRoute } from '@vuepress/client'
 import { RightAnchorPageOptions } from '../../node/rightAnchorPlugin'
 import { getScrollTop, scrollToTitle } from '../utils'
@@ -7,7 +7,7 @@ import { debounce } from 'ts-debounce'
 import '../styles/vars.css'
 import '../styles/right-anchor.css'
 
-export type RightAnchorPageHeader = Omit<PageHeader, 'children'>
+export type RightAnchorPageHeaders = Omit<PageHeader, 'children'>[]
 
 export const RightAnchor = defineComponent({
   name: 'RightAnchor',
@@ -16,46 +16,56 @@ export const RightAnchor = defineComponent({
     const route = useRoute()
 
     const page = usePageData<{ rightAnchor: RightAnchorPageOptions }>()
-    console.log('usePageData', page)
-    const { rightAnchor, headers } = page.value
-    const { customClass = '', expand, isIgnore } = rightAnchor
+    const rightAnchor = ref(page.value.rightAnchor)
 
+    const raShow = ref(!rightAnchor.value.isIgnore)
     const menuShow = ref(false)
-    if (expand.trigger === 'click') menuShow.value = expand.clickModeDefaultOpen
+
+    const raCustomClass = ref(rightAnchor.value.customClass ?? '')
 
     const scrollTop = ref(0)
     const activeIndex = ref(0)
-    const headersList = ref<RightAnchorPageHeader[]>([])
+    const headersList = ref<RightAnchorPageHeaders>([])
 
     const filterDataByLevel = (headers: PageHeader[]) => {
       if (headers.length === 0) return;
 
       headers.forEach((item) => {
-        const { showDepth } = rightAnchor
-        if (!showDepth || item.level <= showDepth + 1) {
+        if (!rightAnchor.value.showDepth || item.level <= rightAnchor.value.showDepth + 1) {
           headersList.value.push({ ...item })
         }
         filterDataByLevel(item.children)
       })
     }
 
-    filterDataByLevel(headers)
-
-    const show = computed(() => !isIgnore && headersList.value.length > 0)
+    filterDataByLevel(page.value.headers)
 
     watch(route, () => {
-      console.log('watch route', route)
-      filterDataByLevel(headers)
+      headersList.value = []
+
+      const page = usePageData<{ rightAnchor: RightAnchorPageOptions }>()
+      rightAnchor.value = page.value.rightAnchor
+
+      filterDataByLevel(page.value.headers)
+    })
+
+    watch(rightAnchor, (state) => {
+      raShow.value = !state.isIgnore
+
+      if (state.expand.trigger === 'click') menuShow.value = state.expand.clickModeDefaultOpen
+      else menuShow.value = false
+
+      raCustomClass.value = state.customClass ?? ''
     })
 
     const onRaMouseover = () => {
-      if (expand.trigger === "hover") menuShow.value = true;
+      if (rightAnchor.value.expand.trigger === "hover") menuShow.value = true;
     }
     const onRaMouseleave = () => {
-      if (expand.trigger === "hover") menuShow.value = false;
+      if (rightAnchor.value.expand.trigger === "hover") menuShow.value = false;
     }
     const onBtnClick = () => {
-      if (expand.trigger === "click") menuShow.value = !menuShow.value;
+      if (rightAnchor.value.expand.trigger === "click") menuShow.value = !menuShow.value;
     }
     const headersListItemClick = (index: number, slug: string) => {
       activeIndex.value = index
@@ -105,24 +115,35 @@ export const RightAnchor = defineComponent({
         debounce(() => {
           scrollTop.value = getScrollTop()
 
+          headersList.value.forEach((item, index) => {
+            const elOffsetTop = document.getElementById(item.slug)?.offsetTop
+            if (elOffsetTop) {
+              if (index === 0 && scrollTop.value < elOffsetTop) activeIndex.value = 0
+              else if (scrollTop.value >= elOffsetTop) activeIndex.value = index
+            }
+          });
         }, 100)
       )
     })
 
-    return () => show.value ? h(
-      'div',
-      {
-        class: `right-anchor is-global ${customClass}`,
-        onMouseover: onRaMouseover,
-        onMouseleave: onRaMouseleave,
-      },
-      [
-        RightAnchorBtnEl(),
-        RightAnchorMenuEl()
-      ]
-    ) : null
+    return () =>
+      raShow.value && headersList.value.length > 0
+        ?
+        h(
+          'div',
+          {
+            class: `right-anchor is-global ${raCustomClass.value}`,
+            onMouseover: onRaMouseover,
+            onMouseleave: onRaMouseleave,
+          },
+          [
+            RightAnchorBtnEl(),
+            RightAnchorMenuEl()
+          ]
+        )
+        :
+        null
   }
-
 })
 
 export default RightAnchor
