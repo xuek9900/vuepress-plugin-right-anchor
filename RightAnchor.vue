@@ -107,7 +107,7 @@ export default {
       if (!showDepth) {
         this.listData = [...headers];
       } else {
-        this.listData = headers.filter(item => item.level <= showDepth + 1)
+        this.listData = headers.filter(item => item.level <= showDepth + 1);
       }
     },
     getScrollTop() {
@@ -131,7 +131,14 @@ export default {
       "scroll",
       throttle(() => {
         const scrollTop = this.getScrollTop();
-        this.activeIndex = this.listData.findIndex(item => (document.getElementById(item.slug)?.offsetTop || 0) > scrollTop) - 1;
+
+        this.listData.forEach((item, index) => {
+          const elOffsetTop = document.getElementById(item.slug)?.offsetTop;
+          if (elOffsetTop) {
+            if (index === 0 && scrollTop < elOffsetTop) this.activeIndex = 0;
+            else if (scrollTop >= elOffsetTop) this.activeIndex = index;
+          }
+        });
       }, 100)
     );
   }
