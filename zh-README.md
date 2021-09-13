@@ -10,14 +10,17 @@
 
 > 在用 Vuepress 2.x 编写的文档页面右侧添加 **锚点导航栏**
 
+## 版本
+  - 2.x.x -> Vuepress 2.x -> master 分支
+  - 0.x.x -> Vuepress 1.x -> legacy 分支
+
+
 ## 特性
   - 简化左侧边栏结构的同时不丢失页面内标题导航的功能。
   - 点击锚点标签页面滚动过度。
   - 页面滚动时对应锚点标签跟随高亮。
-  - 禁用全局 UI。
+  - 非全局组件，可在页面内自由使用（实现中）。
 
-## 示例
-  [soonspacejs 文档](http://www.xwbuilders.com:9018/soonspacejs/Docs/1.x/api/basics/sbm.html)
 
 ## 安装
 ```bash
@@ -39,17 +42,27 @@ module.exports = {
 ```
 
 ## 样式
-在 `.vuepress/styles/palette.styl` 添加样式变量。
+在 `.vuepress/styles/index.scss` 添加样式变量。
 
-```stylus
-$rightAnchorBgColor = #fff;
-$rightAnchorTextColor = $textColor;
-$rightAnchorFontSize = 14px;
-// btn
-$rightAnchorBtnTextColor = $rightAnchorTextColor;
-$rightAnchorBtnBgColor = $rightAnchorBgColor;
-// menu
-$rightAnchorMenuTextColor = $rightAnchorTextColor;
+```css
+.right-anchor {
+  --rightAnchorTextColor: red;
+  --rightAnchorFontSize: 12px;
+  /* Btn */
+  --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  /* Menu */
+  --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+}
+
+/* 暗主题 */
+.dark .right-anchor {
+  --rightAnchorTextColor: yellow;
+  --rightAnchorFontSize: 16px;
+  /* Btn */
+  --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  /* Menu */
+  --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+}
 ```
 
 ## 全局配置
@@ -73,7 +86,6 @@ module.exports = {
           clickModeDefaultOpen: true
         },
         customClass: 'your-customClass',
-        disableGlobalUI: false,
       }
     ]
   ]
@@ -83,8 +95,6 @@ module.exports = {
 ## 参数说明
 
 ### showDepth
-
-  !!! `showLevel` 已经被废弃在 `0.3.x`。
 
   在右锚显示中将使用哪一级别的标题。
   该值的指向含义与 [themeconfig.sidebardepth](https://vuepress.vuejs.org/zh/theme/default-theme-config.html#%E4%BE%A7%E8%BE%B9%E6%A0%8F) 相同。
@@ -112,29 +122,13 @@ module.exports = {
         trigger: 'hover',
         clickModeDefaultOpen: true
       }
-
+      ```
 ### customClass
 
   自定义的 `right-anchor` 类名。
 
   - Type: null | string
   - Default: null
-
-### disableGlobalUI
-
-  禁用所有页面的全局 UI。
-
-  - Type: boolean
-  - Default: false
-
-  如果你需要禁用特定页面的全局 UI，试试 `frontmatter`:
-
-  ```YAML
-  ---
-  rightAnchor:
-    disableGlobalUI: true
-  ---
-  ```
 
 ## 页面单独配置
 
@@ -148,6 +142,5 @@ module.exports = {
       trigger: hover
       clickModeDefaultOpen: true
     customClass: your-customClass
-    disableGlobalUI: true
   ---
   ```
