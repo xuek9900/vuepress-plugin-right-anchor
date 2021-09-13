@@ -1,0 +1,8 @@
+:root {
+  --rightAnchorTextColor: var(--c-text);
+  --rightAnchorFontSize: 14px;
+  /* Btn */
+  --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  /* Menu */
+  --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+}
