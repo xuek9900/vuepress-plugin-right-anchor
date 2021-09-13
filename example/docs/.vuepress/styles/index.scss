@@ -1,3 +1,17 @@
 .right-anchor {
-  // --rightAnchorBgColor: red;
+  --rightAnchorTextColor: red;
+  --rightAnchorFontSize: 12px;
+  /* Btn */
+  --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  /* Menu */
+  --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+}
+
+.dark .right-anchor {
+  --rightAnchorTextColor: yellow;
+  --rightAnchorFontSize: 16px;
+  /* Btn */
+  --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  /* Menu */
+  --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
 }
