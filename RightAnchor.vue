@@ -119,14 +119,13 @@ export default {
       );
     }
   },
-  created() {
+  mounted() {
     this.filterDataByLevel();
 
     if (this.expandOptions?.trigger === "click") {
       this.opened = this.expandOptions?.clickModeDefaultOpen;
     }
-  },
-  mounted() {
+
     window.addEventListener(
       "scroll",
       throttle(() => {
