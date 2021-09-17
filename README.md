@@ -52,8 +52,10 @@ Add in `.vuepress/styles/index.scss`
   --rightAnchorFontSize: 12px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  --rightAnchorBtnBgColor: #fff;
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+  --rightAnchorMenuBgColor: #fff;
 }
 
 /* dark theme */
@@ -62,8 +64,10 @@ Add in `.vuepress/styles/index.scss`
   --rightAnchorFontSize: 16px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  --rightAnchorBtnBgColor: #000;
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+  --rightAnchorMenuBgColor: #000;
 }
 ```
 

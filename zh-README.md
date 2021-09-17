@@ -50,18 +50,22 @@ module.exports = {
   --rightAnchorFontSize: 12px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  --rightAnchorBtnBgColor: #fff;
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+  --rightAnchorMenuBgColor: #fff;
 }
 
-/* 暗主题 */
+/* dark theme */
 .dark .right-anchor {
   --rightAnchorTextColor: yellow;
   --rightAnchorFontSize: 16px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  --rightAnchorBtnBgColor: #000;
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+  --rightAnchorMenuBgColor: #000;
 }
 ```
 

@@ -23,6 +23,7 @@ module.exports = {
 
   plugins: [
     ['vuepress-plugin-right-anchor', {
+      customClass: 'customClass',
       showDepth: 2,
       ignore: [
         '/'

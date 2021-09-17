@@ -3,6 +3,8 @@
   --rightAnchorFontSize: 14px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  --rightAnchorBtnBgColor: var(--c-bg);
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+  --rightAnchorMenuBgColor: var(--c-bg);
 }

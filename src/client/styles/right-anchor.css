@@ -27,6 +27,7 @@
   width: 1.75rem;
   height: 1.75rem;
   color: var(--rightAnchorBtnTextColor);
+  background-color: var(--rightAnchorBtnBgColor);
   border-radius: 4px;
   cursor: pointer;
 }
@@ -49,6 +50,7 @@
   overflow-y: auto;
   max-height: calc(100% - 1.75rem - 0.6rem * 2 + 0.2rem * 2);
   margin: calc(1.75rem + 0.6rem * 2 + 0.2rem * 2) 0 0 0;
+  background-color: var(--rightAnchorMenuBgColor);
 }
 
 .right-anchor-menu-item {

@@ -3,8 +3,13 @@
   --rightAnchorFontSize: 12px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
+  --rightAnchorBtnBgColor: #ccc;
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
+
+  &.customClass {
+    display: block !important;
+  }
 }
 
 .dark .right-anchor {
