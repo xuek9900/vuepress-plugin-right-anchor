@@ -1,26 +1,20 @@
-import type { Plugin } from '@vuepress/core'
+import type { Page, Plugin } from '@vuepress/core'
 import { path } from '@vuepress/utils'
-export interface RightAnchorPluginOptions {
-  showDepth?: number
-  ignore?: string[]
-  expand?: {
-    trigger: 'hover' | 'click'
-    clickModeDefaultOpen: boolean
-  }
-  customClass?: string
-}
+import type { RightAnchorPluginOptions, RightAnchorPageOptions } from '../client/types'
 
-export interface RightAnchorPageOptions {
-  showDepth?: number
-  isIgnore: boolean
-  expand: {
-    trigger: 'hover' | 'click'
-    clickModeDefaultOpen: boolean
+export const rightAnchorPlugin: Plugin<RightAnchorPluginOptions> = (options = {}, app) => {
+  if (app.env.isDev && app.options.bundler.endsWith('vite')) {
+    // eslint-disable-next-line import/no-extraneous-dependencies
+    app.options.bundlerConfig.viteOptions = require('vite').mergeConfig(
+      app.options.bundlerConfig.viteOptions,
+      {
+        optimizeDeps: {
+          exclude: ['ts-debounce'],
+        },
+      }
+    )
   }
-  customClass?: string
-}
 
-export const rightAnchorPlugin: Plugin<RightAnchorPluginOptions> = (options = {}) => {
   return {
     name: 'vuepress-plugin-right-anchor',
 
@@ -29,7 +23,7 @@ export const rightAnchorPlugin: Plugin<RightAnchorPluginOptions> = (options = {}
       '../client/components/RightAnchor.js'
     ),
 
-    extendsPageData: (page) => {
+    extendsPage: (page: Page<{ rightAnchor: RightAnchorPageOptions }>) => {
       const { rightAnchor: frontmatterOptions = {} } = page.frontmatter
 
       const rightAnchor: RightAnchorPageOptions = {
@@ -44,9 +38,7 @@ export const rightAnchorPlugin: Plugin<RightAnchorPluginOptions> = (options = {}
         },
       }
 
-      return {
-        rightAnchor
-      }
+      page.data.rightAnchor = rightAnchor
     },
   }
 }

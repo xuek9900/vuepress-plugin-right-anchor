@@ -1,2 +1,2 @@
  
- export * from './RightAnchor'
+export * from './RightAnchor'

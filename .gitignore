@@ -6,4 +6,5 @@ example/docs/.vuepress/.temp
 node_modules
 package-lock.json
 
-tsconfig.tsbuildinfo
+*.tsbuildinfo
+*.*.tsbuildinfo

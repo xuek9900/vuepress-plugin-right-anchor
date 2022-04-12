@@ -1,6 +1,6 @@
 import { defineComponent, h, ref, onMounted, watch } from 'vue'
 import { usePageData, PageHeader, useRoute } from '@vuepress/client'
-import { RightAnchorPageOptions } from '../../node/rightAnchorPlugin'
+import { RightAnchorPageOptions } from '../types'
 import { getScrollTop, scrollToTitle } from '../utils'
 import { debounce } from 'ts-debounce'
 
@@ -52,20 +52,20 @@ export const RightAnchor = defineComponent({
     watch(rightAnchor, (state) => {
       raShow.value = !state.isIgnore
 
-      if (state.expand.trigger === 'click') menuShow.value = state.expand.clickModeDefaultOpen
+      if (state.expand?.trigger === 'click') menuShow.value = state.expand.clickModeDefaultOpen
       else menuShow.value = false
 
       raCustomClass.value = state.customClass ?? ''
     })
 
     const onRaMouseover = () => {
-      if (rightAnchor.value.expand.trigger === "hover") menuShow.value = true;
+      if (rightAnchor.value.expand?.trigger === "hover") menuShow.value = true;
     }
     const onRaMouseleave = () => {
-      if (rightAnchor.value.expand.trigger === "hover") menuShow.value = false;
+      if (rightAnchor.value.expand?.trigger === "hover") menuShow.value = false;
     }
     const onBtnClick = () => {
-      if (rightAnchor.value.expand.trigger === "click") menuShow.value = !menuShow.value;
+      if (rightAnchor.value.expand?.trigger === "click") menuShow.value = !menuShow.value;
     }
     const headersListItemClick = (index: number, slug: string) => {
       activeIndex.value = index
@@ -110,20 +110,19 @@ export const RightAnchor = defineComponent({
     onMounted(() => {
       scrollTop.value = getScrollTop()
 
-      window.addEventListener(
-        'scroll',
-        debounce(() => {
-          scrollTop.value = getScrollTop()
-
-          headersList.value.forEach((item, index) => {
-            const elOffsetTop = document.getElementById(item.slug)?.offsetTop
-            if (elOffsetTop) {
-              if (index === 0 && scrollTop.value < elOffsetTop) activeIndex.value = 0
-              else if (scrollTop.value >= elOffsetTop) activeIndex.value = index
-            }
-          });
-        }, 100)
-      )
+      const onScroll = debounce(() => {
+        scrollTop.value = getScrollTop()
+  
+        headersList.value.forEach((item, index) => {
+          const elOffsetTop = document.getElementById(item.slug)?.offsetTop
+          if (elOffsetTop) {
+            if (index === 0 && scrollTop.value < elOffsetTop) activeIndex.value = 0
+            else if (scrollTop.value >= elOffsetTop) activeIndex.value = index
+          }
+        });
+      }, 100)
+  
+      window.addEventListener('scroll', () => onScroll())
     })
 
     return () =>

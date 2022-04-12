@@ -20,7 +20,6 @@ module.exports = {
       ]
     }
   },
-
   plugins: [
     ['vuepress-plugin-right-anchor', {
       customClass: 'customClass',
