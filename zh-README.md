@@ -11,8 +11,8 @@
 > 在用 Vuepress 2.x 编写的文档页面右侧添加 **锚点导航栏**
 
 ## 版本
-  - 2.x.x -> Vuepress 2.x -> master 分支
-  - 0.x.x -> Vuepress 1.x -> legacy 分支
+  - 2.x.x -> Vuepress 2.x -> npm next   -> master 分支
+  - 0.x.x -> Vuepress 1.x -> npm latest -> legacy 分支
 
 
 ## 特性

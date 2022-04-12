@@ -11,8 +11,8 @@ English ｜[中文](./zh-README.md)
 > Add **anchor navigation bar** to the right of the document page written in Vuepress 2.x
 
 ## Version
-  - 2.x.x -> Vuepress 2.x -> master branch
-  - 0.x.x -> Vuepress 1.x -> legacy branch
+  - 2.x.x -> Vuepress 2.x -> npm next   -> master branch
+  - 0.x.x -> Vuepress 1.x -> npm latest -> legacy branch
 
 
 ## Features
