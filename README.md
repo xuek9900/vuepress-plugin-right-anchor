@@ -46,31 +46,30 @@ module.exports = {
 ## Style
 Add in `.vuepress/styles/index.scss`
 
-```css
+```scss
 .right-anchor {
-  --rightAnchorTextColor: red;
-  --rightAnchorFontSize: 12px;
+  --rightAnchorTextColor: var(--c-text);
+  --rightAnchorFontSize: 14px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
-  --rightAnchorBtnBgColor: #fff;
+  --rightAnchorBtnBgColor: var(--c-bg);
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
-  --rightAnchorMenuBgColor: #fff;
+  --rightAnchorMenuBgColor: var(--c-bg);
 }
 
 /* dark theme */
 .dark .right-anchor {
-  --rightAnchorTextColor: yellow;
-  --rightAnchorFontSize: 16px;
+  --rightAnchorTextColor: var(--c-text);
+  --rightAnchorFontSize: 14px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
-  --rightAnchorBtnBgColor: #000;
+  --rightAnchorBtnBgColor: var(--c-bg);
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
-  --rightAnchorMenuBgColor: #000;
+  --rightAnchorMenuBgColor: var(--c-bg);
 }
 ```
-
 
 ## Global Config
 Add in `.vuepress/config.js`

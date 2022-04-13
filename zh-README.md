@@ -44,28 +44,28 @@ module.exports = {
 ## 样式
 在 `.vuepress/styles/index.scss` 添加样式变量。
 
-```css
+```scss
 .right-anchor {
-  --rightAnchorTextColor: red;
-  --rightAnchorFontSize: 12px;
+  --rightAnchorTextColor: var(--c-text);
+  --rightAnchorFontSize: 14px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
-  --rightAnchorBtnBgColor: #fff;
+  --rightAnchorBtnBgColor: var(--c-bg);
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
-  --rightAnchorMenuBgColor: #fff;
+  --rightAnchorMenuBgColor: var(--c-bg);
 }
 
 /* dark theme */
 .dark .right-anchor {
-  --rightAnchorTextColor: yellow;
-  --rightAnchorFontSize: 16px;
+  --rightAnchorTextColor: var(--c-text);
+  --rightAnchorFontSize: 14px;
   /* Btn */
   --rightAnchorBtnTextColor: var(--rightAnchorTextColor);
-  --rightAnchorBtnBgColor: #000;
+  --rightAnchorBtnBgColor: var(--c-bg);
   /* Menu */
   --rightAnchorMenuTextColor: var(--rightAnchorTextColor);
-  --rightAnchorMenuBgColor: #000;
+  --rightAnchorMenuBgColor: var(--c-bg);
 }
 ```
 
