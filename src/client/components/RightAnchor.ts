@@ -1,4 +1,4 @@
-import {defineComponent, h, ref, onMounted, watch, watchEffect} from 'vue'
+import { defineComponent, h, ref, onMounted, watch, watchEffect } from 'vue'
 import { usePageData, PageHeader } from '@vuepress/client'
 import { useRoute } from 'vue-router';
 import { RightAnchorPageOptions } from '../types'
@@ -50,7 +50,7 @@ export const RightAnchor = defineComponent({
       filterDataByLevel(page.value.headers)
     })
 
-    watchEffect( () => {
+    watchEffect(() => {
       raShow.value = !rightAnchor.value.isIgnore
 
       if (rightAnchor.value.expand?.trigger === 'click') menuShow.value = rightAnchor.value.expand.clickModeDefaultOpen
@@ -113,7 +113,7 @@ export const RightAnchor = defineComponent({
 
       const onScroll = debounce(() => {
         scrollTop.value = getScrollTop()
-  
+
         headersList.value.forEach((item, index) => {
           const elOffsetTop = document.getElementById(item.slug)?.offsetTop
           if (elOffsetTop) {
@@ -122,7 +122,7 @@ export const RightAnchor = defineComponent({
           }
         });
       }, 100)
-  
+
       window.addEventListener('scroll', () => onScroll())
     })
 

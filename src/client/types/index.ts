@@ -1,6 +1,6 @@
-import {PluginObject} from "@vuepress/core";
+import { PluginObject } from "@vuepress/core";
 
-export interface RightAnchorPluginOptions extends PluginObject{
+export interface RightAnchorPluginOptions extends PluginObject {
   showDepth: number
   ignore?: string[]
   expand?: {

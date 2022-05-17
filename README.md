@@ -19,14 +19,14 @@ English ｜[中文](./zh-README.md)
   - Simplify the structure of the left sidebar without losing the function of Title navigation within the page.
   - Click anchor label page over scrolling.
   - When the page scrolls, the corresponding anchor label follows the highlight.
-  - Non global component, which can be freely used in the page (under implementation).
+  - Non global component, which can be freely used in the page.
 
 
 ## Install
 ```bash
-yarn add -D vuepress-plugin-right-anchor@next
+yarn add vuepress-plugin-right-anchor@next
 # or
-npm i -D vuepress-plugin-right-anchor@next
+npm i vuepress-plugin-right-anchor@next -D
 ```
 
 

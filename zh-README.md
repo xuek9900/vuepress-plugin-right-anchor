@@ -19,12 +19,12 @@
   - 简化左侧边栏结构的同时不丢失页面内标题导航的功能。
   - 点击锚点标签页面滚动过度。
   - 页面滚动时对应锚点标签跟随高亮。
-  - 非全局组件，可在页面内自由使用（实现中）。
+  - 非全局组件，可在页面内自由使用。
 
 
 ## 安装
 ```bash
-yarn add vuepress-plugin-right-anchor -D
+yarn add vuepress-plugin-right-anchor
 # or
 npm i vuepress-plugin-right-anchor -D
 ```
