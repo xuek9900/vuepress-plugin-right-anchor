@@ -1,5 +1,6 @@
-import { defineComponent, h, ref, onMounted, watch } from 'vue'
-import { usePageData, PageHeader, useRoute } from '@vuepress/client'
+import {defineComponent, h, ref, onMounted, watch, watchEffect} from 'vue'
+import { usePageData, PageHeader } from '@vuepress/client'
+import { useRoute } from 'vue-router';
 import { RightAnchorPageOptions } from '../types'
 import { getScrollTop, scrollToTitle } from '../utils'
 import { debounce } from 'ts-debounce'
@@ -49,13 +50,13 @@ export const RightAnchor = defineComponent({
       filterDataByLevel(page.value.headers)
     })
 
-    watch(rightAnchor, (state) => {
-      raShow.value = !state.isIgnore
+    watchEffect( () => {
+      raShow.value = !rightAnchor.value.isIgnore
 
-      if (state.expand?.trigger === 'click') menuShow.value = state.expand.clickModeDefaultOpen
+      if (rightAnchor.value.expand?.trigger === 'click') menuShow.value = rightAnchor.value.expand.clickModeDefaultOpen
       else menuShow.value = false
 
-      raCustomClass.value = state.customClass ?? ''
+      raCustomClass.value = rightAnchor.value.customClass ?? ''
     })
 
     const onRaMouseover = () => {
@@ -79,14 +80,14 @@ export const RightAnchor = defineComponent({
         onClick: onBtnClick,
         innerHTML: `
         <svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 448 512"
->
-  <path
-    fill="currentColor"
-    d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"
-  />
-</svg>`
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+          >
+            <path
+              fill="currentColor"
+              d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"
+            />
+          </svg>`
       }
     )
     const RightAnchorMenuEl = () => h(

@@ -1,44 +1,43 @@
-import type { Page, Plugin } from '@vuepress/core'
+import type {App, Page} from '@vuepress/core'
 import { path } from '@vuepress/utils'
 import type { RightAnchorPluginOptions, RightAnchorPageOptions } from '../client/types'
 
-export const rightAnchorPlugin: Plugin<RightAnchorPluginOptions> = (options = {}, app) => {
-  if (app.env.isDev && app.options.bundler.endsWith('vite')) {
-    // eslint-disable-next-line import/no-extraneous-dependencies
-    app.options.bundlerConfig.viteOptions = require('vite').mergeConfig(
-      app.options.bundlerConfig.viteOptions,
-      {
-        optimizeDeps: {
-          exclude: ['ts-debounce'],
-        },
-      }
-    )
-  }
+export const rightAnchorPlugin = (options: RightAnchorPluginOptions) => {
+  return (app: App) => {
+    // if (app.env.isDev && app.options.bundler.name.endsWith('vite')) {
+    //   app.options.bundler.dev = require('vite').mergeConfig(
+    //       app.options.bundler.dev,
+    //       {
+    //         optimizeDeps: {
+    //           exclude: ['ts-debounce'],
+    //         },
+    //       }
+    //   )
+    // }
 
-  return {
-    name: 'vuepress-plugin-right-anchor',
+    return {
+      name: 'vuepress-plugin-right-anchor',
 
-    clientAppRootComponentFiles: path.resolve(
-      __dirname,
-      '../client/components/RightAnchor.js'
-    ),
+      clientConfigFile: path.resolve(__dirname, '../client/config.js'),
 
-    extendsPage: (page: Page<{ rightAnchor: RightAnchorPageOptions }>) => {
-      const { rightAnchor: frontmatterOptions = {} } = page.frontmatter
+      extendsPage: (page: Page<{ rightAnchor: RightAnchorPageOptions }>) => {
 
-      const rightAnchor: RightAnchorPageOptions = {
-        ...options,
-        ...frontmatterOptions as any,
-        isIgnore: Array.isArray(options.ignore) && options.ignore.includes((page as any).path),
-        expand: {
-          trigger: 'hover',
-          clickModeDefaultOpen: true,
-          ...options.expand,
-          ...(frontmatterOptions as any).expand,
-        },
-      }
+        const { rightAnchor: frontmatterOptions = {} } = page.frontmatter
 
-      page.data.rightAnchor = rightAnchor
-    },
+        const rightAnchor: RightAnchorPageOptions = {
+          ...options,
+          ...frontmatterOptions as any,
+          isIgnore: Array.isArray(options.ignore) && options.ignore.includes((page as any).path),
+          expand: {
+            trigger: 'hover',
+            clickModeDefaultOpen: true,
+            ...options.expand,
+            ...(frontmatterOptions as any).expand,
+          },
+        }
+
+        page.data.rightAnchor = rightAnchor
+      },
+    }
   }
 }
