@@ -24,9 +24,9 @@
 
 ## 安装
 ```bash
-yarn add vuepress-plugin-right-anchor
+yarn add vuepress-plugin-right-anchor@next
 # or
-npm i vuepress-plugin-right-anchor -D
+npm i vuepress-plugin-right-anchor@next -D
 ```
 
 ## 使用
